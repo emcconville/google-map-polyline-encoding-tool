@@ -12,9 +12,29 @@ class Polyline {
 	}
 
 	public function __get($node) {
+		$return = null;
+		if (preg_match('/^(.*?)(points|encoded)$/i',$node,$matches)) {
+			list($all,$key,$type) = $matches;
+			if(isset($this->shapes[$key]) && isset($this->shapes[$key][$type])) {
+				$type = strtolower($type);
+				$return = $this->shapes[$key][$type];
+			} else {
+				$return = $type == 'points' ? array() : '';
+			}
+		} elseif (isset($this->shapes[$node])) {
+			$return = $this->shapes[$node];
+		} else {
+			throw BadMethodException();
+		}
+		return $return;
 	}
 	
 	public function __set($node,$value=array()) {
+		$this->shapes[$node] = array(
+				'points'  => is_array($value) ? self::flatten($value) : $this->decode($value),
+				'encoded' => is_array($value) ? $this->encode($value) : $value
+			);
+		return $value;
 	}
 	
 	public function __call($method,$agruments) {
@@ -28,7 +48,7 @@ class Polyline {
 	 */
 	public function encode($points) {
 		$points = self::flatten($points);
-		$encoded_string = "";
+		$encoded_string = '';
 		$index = 0;
 		$previous = array(0,0);
 		foreach($points as $number) {
@@ -39,7 +59,7 @@ class Polyline {
 			$number = $diff;
 			$index++;
 			$number = ($number < 0) ? ~($number << 1) : ($number << 1);
-			$chunk = "";
+			$chunk = '';
 			while($number >= 0x20) {
 				$chunk .= chr((0x20 | ($number & 0x1f)) + 63);
 				$number >>= 5;
