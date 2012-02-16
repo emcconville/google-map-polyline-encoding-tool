@@ -7,7 +7,7 @@ class Polyline {
 		
 	} 
 
-	public static function getInstance() {
+	public static function Singeton() {
 		return self::$instance instanceof self ? self::$instance : self::$instance = new self;
 	}
 
@@ -31,8 +31,8 @@ class Polyline {
 	
 	public function __set($node,$value=array()) {
 		$this->shapes[$node] = array(
-				'points'  => is_array($value) ? self::flatten($value) : $this->decode($value),
-				'encoded' => is_array($value) ? $this->encode($value) : $value
+				'points'  => is_array($value) ? self::flatten($value) : self::Decode($value),
+				'encoded' => is_array($value) ? self::Encode($value) : $value
 			);
 		return $value;
 	}
@@ -46,7 +46,7 @@ class Polyline {
 	 * @param array $points
 	 * @return string $encoded_string
 	 */
-	public function encode($points) {
+	public static function Encode($points) {
 		$points = self::flatten($points);
 		$encoded_string = '';
 		$index = 0;
@@ -76,7 +76,7 @@ class Polyline {
 	 * @param string $string
 	 * @return array $points
 	 */
-	public function decode($string) {
+	public static function Decode($string) {
 		$points = array();
 		$index = $i = 0;
 		$previous = array(0,0);
