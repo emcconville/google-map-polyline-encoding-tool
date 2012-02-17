@@ -10,11 +10,11 @@ require_once 'Polyline.php';
 
 // Points to encode
 $points = array(
-        array(41.89084857473952,-87.6238678202377),
-        array(41.89086055484973,-87.62279493663175),
-        array(41.890289500431564,-87.62277884337766),
-        array(41.89028151362027,-87.62385172698362),
-        array(41.89084857473952,-87.6238678202377)
+        array(41.89084,-87.62386),
+        array(41.89086,-87.62279),
+        array(41.89028,-87.62277),
+        array(41.89028,-87.62385),
+        array(41.89084,-87.62386)
     );
 
 print Polyline::Encode($points);
@@ -33,7 +33,11 @@ wxt~Fd`yuOCuErBC?vEoB@
 
 ```php
 <?php
-$points = Polyline::Decode("kiw~FpoavObBA?fAzEC");
+require_once 'Polyline.php';
+
+// String to decode
+$str    = "kiw~FpoavObBA?fAzEC";
+$points = Polyline::Decode($str);
 var_dump($points);
 ?>
 ```
@@ -41,6 +45,57 @@ var_dump($points);
 Output:
 
 ```
+array(8) {
+  [0] =>
+  double(41.90374)
+  [1] =>
+  double(-87.66729)
+  [2] =>
+  double(41.90324)
+  [3] =>
+  double(-87.66728)
+  [4] =>
+  double(41.90324)
+  [5] =>
+  double(-87.66764)
+  [6] =>
+  double(41.90214)
+  [7] =>
+  double(-87.66762)
+}
+```
+
+### Singleton
+
+The Polyline object can be initialized as a single object, and be referenced throughout an application.
+
+```php
+<?php
+require_once 'Polyline.php';
+
+// Create singleton
+$myPolyline = Polyline::Singleton();
+
+// Create a polyline from an array of points
+$myPolyline->polyline("tribune",array(41.89084,-87.62386,41.89086,-87.62279
+                                      41.89028,-87.62277,41.89028,-87.62385));
+
+// Create a polyline from an encoded string
+$myPolyline->polyline("dustygroove","kiw~FpoavObBA?fAzEC");
+
+/* ... do work .. */
+
+$anotherPolyline = Polyline::Singleton();
+var_dump( $anotherPolyline->getTribunePoints() );
+var_dump( $anotherPolyline->getDustyGrooveEncoded() );
+?>
+```
+
+Output:
+
+```
+string(22) "wxt~Fd`yuOCuErBC?vEoB@"
+
 array(8) {
   [0] =>
   double(41.90374)

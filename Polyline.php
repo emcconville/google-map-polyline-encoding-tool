@@ -7,32 +7,39 @@ class Polyline {
 		
 	} 
 
-	public static function Singeton() {
+	public static function Singleton() {
 		return self::$instance instanceof self ? self::$instance : self::$instance = new self;
 	}
 
 	public function __call($method,$agruments) {
 		$return = null;
-		if (preg_match('/^get(.+?)(points|encoded)$/i',$node,$matches)) {
+		if (preg_match('/^get(.+?)(points|encoded)$/i',$method,$matches)) {
 			list($all,$key,$type) = $matches;
-			if(isset($this->shapes[$key])) {
-				$return = $this->shapes[$key][$type];
+			if(isset($this->polylines[strtolower($key)])) {
+				$return = $this->polylines[strtolower($key)][strtolower($type)];
 			} else {
-				throw BadMethodException();
+				throw new BadMethodCallException();
 			}
 		} else {
-			throw BadMethodException();
+			throw new BadMethodCallException();
 		}
 		return $return;
 	}
 	
+	/**
+	 * General purpose data method
+	 * 
+	 * @param string polyline name
+	 * @param mixed [ string | array ] optional
+	 * @return array 
+	 */
 	public function polyline() {
 		$arguments = func_get_args();
 		$return = null;
 		switch (count($arguments)) {
 			case 2 :
 				list($node,$value) = $arguments;
-				$this->polylines[$node] = array(
+				$return = $this->polylines[$node] = array(
 						'points'  => is_array($value) ? self::flatten($value) : self::Decode($value),
 						'encoded' => is_array($value) ? self::Encode($value) : $value
 					);
@@ -41,10 +48,17 @@ class Polyline {
 				$node = array_shift($arguments);
 				$return = isset($this->polylines[$node]) ? $this->polylines[$node] : array( 'points' => null, 'encoded' => null );
 				break;
-			default:
-				$return = array_keys($this->polylines);
 		}
 		return $return;
+	}
+	
+	/**
+	 * Retreive list of polyline within singleton
+	 *
+	 * @return array $polylines
+	 */
+	public function listPolylines() {
+		return $return = array_keys($this->polylines);
 	}
 
 	/**
@@ -53,7 +67,7 @@ class Polyline {
 	 * @param array $points
 	 * @return string $encoded_string
 	 */
-	public static function Encode($points) {
+	final public static function Encode($points) {
 		$points = self::flatten($points);
 		$encoded_string = '';
 		$index = 0;
@@ -83,7 +97,7 @@ class Polyline {
 	 * @param string $string
 	 * @return array $points
 	 */
-	public static function Decode($string) {
+	final public static function Decode($string) {
 		$points = array();
 		$index = $i = 0;
 		$previous = array(0,0);
@@ -110,7 +124,7 @@ class Polyline {
 	 * @param array $array
 	 * @return array $flatten
 	 */
-	public static function flatten($array) {
+	final public static function flatten($array) {
 		$flatten = array();
 		foreach(array_values($array) as $node) {
 			if (is_array($node)) {
