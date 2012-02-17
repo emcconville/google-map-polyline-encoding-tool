@@ -7,24 +7,52 @@ class Polyline {
 		
 	} 
 
+	/**
+	 * Static instance method
+	 * 
+	 * @return Polyline
+	 */
 	public static function Singleton() {
 		return self::$instance instanceof self ? self::$instance : self::$instance = new self;
 	}
 
+	/**
+	 * Magic method for supporting wildcard getters
+	 *
+	 * @let {Node} be the name of the polyline
+	 * @method get{Node}Points(   ) //=> array of points for polyline "Node"
+	 * @method get{Node}Encoded(  ) //=> encoded string  for polyline "Node"
+	 * @method getPoints( "{Node}") //=> array of points for polyline "Node"
+	 * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
+	 */
 	public function __call($method,$agruments) {
 		$return = null;
 		if (preg_match('/^get(.+?)(points|encoded)$/i',$method,$matches)) {
-			list($all,$key,$type) = $matches;
-			if(isset($this->polylines[strtolower($key)])) {
-				$return = $this->polylines[strtolower($key)][strtolower($type)];
-			} else {
-				throw new BadMethodCallException();
-			}
+			list($all,$node,$type) = $matches;
+			return $this->getPolyline(strtolower($node),strtolower($type));
+		} elseif (preg_match('/^get(points|encoded)$/i',$mehtod,$matches)) {
+			list($all,$type) = $matches;
+			$node = array_shift($arguments);
+			return $this->getPolyline(strtolower($node),strtolower($type));
 		} else {
 			throw new BadMethodCallException();
 		}
 		return $return;
 	}
+	
+	/**
+	 * Polyline getter
+	 * @param string $node
+	 * @param string $type
+	 * @return mixed
+	 */
+	public function getPolyline($node, $type) {
+		$type = in_array('points','encoded') ? $type : 'encoded';
+		return isset($this->polylines[$node]) 
+					? $this->polylines[$node][$type] 
+					: ($type =='points' ? array() : null);
+	}
+	
 	
 	/**
 	 * General purpose data method
@@ -48,7 +76,9 @@ class Polyline {
 				break;
 			case 1 :
 				$node = strtolower((string)array_shift($arguments));
-				$return = isset($this->polylines[$node]) ? $this->polylines[$node] : array( 'points' => null, 'encoded' => null );
+				$return = isset($this->polylines[$node]) 
+						? $this->polylines[$node] 
+						: array( 'points' => null, 'encoded' => null );
 				break;
 		}
 		return $return;
