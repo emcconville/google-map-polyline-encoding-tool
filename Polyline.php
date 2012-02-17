@@ -39,10 +39,12 @@ class Polyline {
 		switch (count($arguments)) {
 			case 2 :
 				list($node,$value) = $arguments;
+				$isArray = is_array($value);
 				$return = $this->polylines[strtolower($node)] = array(
-						'points'  => is_array($value) ? self::Flatten($value) : self::Decode($value),
-						'encoded' => is_array($value) ? self::Encode($value) : $value
+						'points'  => $isArray ? self::Flatten($value) : self::Decode($value),
+						'encoded' => $isArray ? self::Encode($value) : $value
 					);
+				$return = $return[$isArray ? 'encoded' : 'points' ];
 				break;
 			case 1 :
 				$node = strtolower((string)array_shift($arguments));
