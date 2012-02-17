@@ -1,9 +1,9 @@
-Google Maps Polyline Encoding Tool
-==================================
+# Google Maps Polyline Encoding Tool
+
 A simple PHP class for translating latitude & longitude points into a Google Map encoded [polyline][polylineRef].
 
-Usage 
------
+### Encoding
+
 ```php
 <?php
 require_once 'Polyline.php';
@@ -17,12 +17,47 @@ $points = array(
         array(41.89084857473952,-87.6238678202377)
     );
 
-$encodedString = Polyline::Encode($points);
-//=> "wxt~Fd`yuOCuErBC?vEoB@"
+print Polyline::Encode($points);
 
 ?>
 ```
+Output:
+```
+wxt~Fd`yuOCuErBC?vEoB@
+```
+![Tribune](http://emcconville.com/Polyline/tribune.png)
+
+### Decoding
+
+```php
+<?php
+$points = Polyline::Decode("kiw~FpoavObBA?fAzEC");
+var_dump($points);
+?>
+```
+Output:
+```
+array(8) {
+  [0] =>
+  double(41.90374)
+  [1] =>
+  double(-87.66729)
+  [2] =>
+  double(41.90324)
+  [3] =>
+  double(-87.66728)
+  [4] =>
+  double(41.90324)
+  [5] =>
+  double(-87.66764)
+  [6] =>
+  double(41.90214)
+  [7] =>
+  double(-87.66762)
+}
+```
+
+![Tribune](http://emcconville.com/Polyline/dustygroove.png)
 
 [polylineRef]: http://code.google.com/apis/maps/documentation/javascript/reference.html#Polygon
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
-[exampleMap]: http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=200x200&path=weight:1|fillcolor:orange|enc:wxt~Fd%60yuOCuErBC?vEoB@
