@@ -1,5 +1,5 @@
-# Google Maps Polyline Encoding Tool
-
+# Google Maps Polyline Encoding Tool ![](https://secure.travis-ci.org/emcconville/google-map-polyline-encoding-tool.png)
+[![Build Status][buildStatusImage]][buildStatusLink]
 A simple PHP class for translating latitude & longitude points into a Google Map encoded [polyline][polylineRef].
 
 ### Encoding
@@ -124,3 +124,5 @@ array(8) {
 
 [polylineRef]: http://code.google.com/apis/maps/documentation/javascript/reference.html#Polygon
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
+[buildStatusLink]: http://travis-ci.org/emcconville/google-map-polyline-encoding-tool
+[buildStatusImage]: https://secure.travis-ci.org/emcconville/google-map-polyline-encoding-tool.png
