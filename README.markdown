@@ -65,6 +65,8 @@ array(8) {
 }
 ```
 
+![Tribune](http://emcconville.com/Polyline/dustygroove.png)
+
 ### Singleton
 
 The Polyline object can be initialized as a single object, and be referenced throughout an application.
@@ -115,8 +117,6 @@ array(8) {
   double(-87.66762)
 }
 ```
-
-![Tribune](http://emcconville.com/Polyline/dustygroove.png)
 
 [polylineRef]: http://code.google.com/apis/maps/documentation/javascript/reference.html#Polygon
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
