@@ -1,7 +1,7 @@
 <?php
 
 class Polyline {
-	private $shapes = array();
+	private $polylines = array();
 	private static $instance;
 	private function __constuct() {
 		
@@ -11,33 +11,40 @@ class Polyline {
 		return self::$instance instanceof self ? self::$instance : self::$instance = new self;
 	}
 
-	public function __get($node) {
+	public function __call($method,$agruments) {
 		$return = null;
-		if (preg_match('/^(.*?)(points|encoded)$/i',$node,$matches)) {
+		if (preg_match('/^get(.+?)(points|encoded)$/i',$node,$matches)) {
 			list($all,$key,$type) = $matches;
-			if(isset($this->shapes[$key]) && isset($this->shapes[$key][$type])) {
-				$type = strtolower($type);
+			if(isset($this->shapes[$key])) {
 				$return = $this->shapes[$key][$type];
 			} else {
-				$return = $type == 'points' ? array() : '';
+				throw BadMethodException();
 			}
-		} elseif (isset($this->shapes[$node])) {
-			$return = $this->shapes[$node];
 		} else {
 			throw BadMethodException();
 		}
 		return $return;
 	}
 	
-	public function __set($node,$value=array()) {
-		$this->shapes[$node] = array(
-				'points'  => is_array($value) ? self::flatten($value) : self::Decode($value),
-				'encoded' => is_array($value) ? self::Encode($value) : $value
-			);
-		return $value;
-	}
-	
-	public function __call($method,$agruments) {
+	public function polyline() {
+		$arguments = func_get_args();
+		$return = null;
+		switch (count($arguments)) {
+			case 2 :
+				list($node,$value) = $arguments;
+				$this->polylines[$node] = array(
+						'points'  => is_array($value) ? self::flatten($value) : self::Decode($value),
+						'encoded' => is_array($value) ? self::Encode($value) : $value
+					);
+				break;
+			case 1 :
+				$node = array_shift($arguments);
+				$return = isset($this->polylines[$node]) ? $this->polylines[$node] : array( 'points' => null, 'encoded' => null );
+				break;
+			default:
+				$return = array_keys($this->polylines);
+		}
+		return $return;
 	}
 
 	/**
