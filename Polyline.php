@@ -39,13 +39,13 @@ class Polyline {
 		switch (count($arguments)) {
 			case 2 :
 				list($node,$value) = $arguments;
-				$return = $this->polylines[$node] = array(
-						'points'  => is_array($value) ? self::flatten($value) : self::Decode($value),
+				$return = $this->polylines[strtolower($node)] = array(
+						'points'  => is_array($value) ? self::Flatten($value) : self::Decode($value),
 						'encoded' => is_array($value) ? self::Encode($value) : $value
 					);
 				break;
 			case 1 :
-				$node = array_shift($arguments);
+				$node = strtolower((string)array_shift($arguments));
 				$return = isset($this->polylines[$node]) ? $this->polylines[$node] : array( 'points' => null, 'encoded' => null );
 				break;
 		}
@@ -68,7 +68,7 @@ class Polyline {
 	 * @return string $encoded_string
 	 */
 	final public static function Encode($points) {
-		$points = self::flatten($points);
+		$points = self::Flatten($points);
 		$encoded_string = '';
 		$index = 0;
 		$previous = array(0,0);
@@ -124,15 +124,33 @@ class Polyline {
 	 * @param array $array
 	 * @return array $flatten
 	 */
-	final public static function flatten($array) {
+	final public static function Flatten($array) {
 		$flatten = array();
 		foreach(array_values($array) as $node) {
 			if (is_array($node)) {
-				$flatten = array_merge($flatten,self::flatten($node));
+				$flatten = array_merge($flatten,self::Flatten($node));
 			} else {
 				$flatten[] = $node;
 			}
 		}
 		return $flatten;
+	}
+	
+	/**
+	 * Concat list into pairs of points
+	 *
+	 * @param array $list
+	 * @return array $pairs
+	 */
+	final public static function Pair($list) {
+		$pairs = array();
+		if(!is_array($list)) { return $pairs; }
+		do {
+			$pairs[] = array(
+					array_shift($list),
+					array_shift($list)
+				);
+		} while (!empty($list));
+		return $pairs;
 	}
 }
