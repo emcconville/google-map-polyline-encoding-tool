@@ -22,9 +22,11 @@ print Polyline::Encode($points);
 ?>
 ```
 Output:
+
 ```
 wxt~Fd`yuOCuErBC?vEoB@
 ```
+
 ![Tribune](http://emcconville.com/Polyline/tribune.png)
 
 ### Decoding
@@ -35,7 +37,9 @@ $points = Polyline::Decode("kiw~FpoavObBA?fAzEC");
 var_dump($points);
 ?>
 ```
+
 Output:
+
 ```
 array(8) {
   [0] =>
