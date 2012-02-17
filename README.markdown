@@ -37,8 +37,11 @@ require_once 'Polyline.php';
 
 // String to decode
 $str    = "kiw~FpoavObBA?fAzEC";
+
 $points = Polyline::Decode($str);
+
 var_dump($points);
+
 ?>
 ```
 
@@ -90,6 +93,7 @@ $myPolyline->polyline("dustygroove","kiw~FpoavObBA?fAzEC");
 $anotherPolyline = Polyline::Singleton();
 var_dump( $anotherPolyline->getTribunePoints() );
 var_dump( $anotherPolyline->getDustyGrooveEncoded() );
+
 ?>
 ```
 
