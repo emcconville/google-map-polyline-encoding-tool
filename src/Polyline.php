@@ -3,7 +3,7 @@
 class Polyline {
 	private $polylines = array();
 	private static $instance;
-	private function __constuct() {
+	private function __construct() {
 		
 	} 
 
@@ -25,12 +25,12 @@ class Polyline {
 	 * @method getPoints( "{Node}") //=> array of points for polyline "Node"
 	 * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
 	 */
-	public function __call($method,$agruments) {
+	public function __call($method,$arguments) {
 		$return = null;
 		if (preg_match('/^get(.+?)(points|encoded)$/i',$method,$matches)) {
 			list($all,$node,$type) = $matches;
 			return $this->getPolyline(strtolower($node),strtolower($type));
-		} elseif (preg_match('/^get(points|encoded)$/i',$mehtod,$matches)) {
+		} elseif (preg_match('/^get(points|encoded)$/i',$method,$matches)) {
 			list($all,$type) = $matches;
 			$node = array_shift($arguments);
 			return $this->getPolyline(strtolower($node),strtolower($type));
@@ -47,7 +47,8 @@ class Polyline {
 	 * @return mixed
 	 */
 	public function getPolyline($node, $type) {
-		$type = in_array('points','encoded') ? $type : 'encoded';
+		$node = strtolower($node);
+		$type = in_array($type,array('points','encoded')) ? $type : 'encoded';
 		return isset($this->polylines[$node]) 
 					? $this->polylines[$node][$type] 
 					: ($type =='points' ? array() : null);
