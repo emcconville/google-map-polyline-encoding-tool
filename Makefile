@@ -12,16 +12,16 @@ SRC_GMPET = ${SRC_DIR}/${PLY}
 GMPET_VER = $(shell git log -1 --pretty=format:%h\ %p\ %t)
 GMPET_DATE = $(shell git log -1 --date=short --pretty=format:%ad)
 
+all: polyline test goodbye
+
 ${DIST_DIR}:
 	@@mkdir -p ${DIST_DIR}
-
-all: polyline test goodbye
 
 clean:
 	@@echo "Removing polyline build: " ${DIST_DIR}
 	@@rm -rf ${DIST_DIR}
 
-goodbye: 
+goodbye:
 	@@echo "Build complete"
 
 polyline: ${SRC_GMPET} | ${DIST_DIR}
@@ -32,9 +32,9 @@ polyline: ${SRC_GMPET} | ${DIST_DIR}
 		sed 's/@DATE@/'"${GMPET_DATE}"'/' > ${GMPET};
 		
 test: 
+	@@echo "Testing Polyline"
 	@@if test ! -z ${PHPUNIT}; then \
-		echo "Testing build"; \
-		${PHPUNIT} --tap ; \
+		${PHPUNIT} --testdox ; \
 	else \
 		echo "PHPUnit not installed. Skipping build test."; \
 	fi
