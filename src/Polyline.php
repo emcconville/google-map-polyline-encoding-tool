@@ -1,11 +1,49 @@
 <?php
 
+/**
+ * Polyline
+ *
+ * A simple class to handle polyline-encoding for Google Maps 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package   Polyline
+ * @version   @VERSION@
+ * @copyright @DATE@ emcconville
+ * @license   GNU Lesser General Public License <http://www.gnu.org/licenses/lgpl.html>
+ * @link      https://github.com/emcconville/google-map-polyline-encoding-tool
+ * @author    E. McConville <emcconville@emcconville.com>
+ */
+
 class Polyline {
+	
+	/**
+	 * @var array $polylines
+	 */
 	private $polylines = array();
+	
+	/**
+	 * @var Polyline $instance
+	 */
 	private static $instance;
-	private function __construct() {
-		
-	} 
+	
+	/**
+	 * Private constructor. Initailize class throught Polyline::Singleton
+	 *
+	 * @see Polyline::Singleton
+	 */
+	private function __construct() {} 
 
 	/**
 	 * Static instance method
