@@ -36,6 +36,8 @@ class PolylineTest extends PHPUnit_Framework_TestCase
 	public function testPolyline(Polyline $object) {
 		$encoded = $object->polyline($this->polylineName,$this->points);
 		$this->assertEquals($encoded,$this->encoded);
+		$hash = $object->polyline($this->polylineName);
+		$this->assertEquals($encoded,$hash['encoded']);
 		return $object;
 	}
 
@@ -46,16 +48,29 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testGetPolyline(Polyline $object) 
     {
 	    $this->assertEquals($this->encoded,$object->getPolyline($this->polylineName,'encoded'));
+	    $this->assertNull($object->getPolyline('I_Dont_exsits','encoded'));
 	    return $object;
     } 
+
     /**
      * @covers Polyline::__call
-	 * @depends testPolyline
+	 * @depends testGetPolyline
      */
     public function testGetters(Polyline $object)
     {
 		$this->assertEquals($this->encoded,$object->getEncoded($this->polylineName));
 		$this->assertEquals($this->encoded,$object->getHydeParkRecordsEncoded());
+		return $object;
+    }
+
+ 	/**
+     * @covers Polyline::__call
+     * @expectedException BadMethodCallException
+	 * @depends testPolyline
+     */
+    public function testGettersException(Polyline $object)
+    {
+		$object->thisMethodFails();
 		return $object;
     }
 
