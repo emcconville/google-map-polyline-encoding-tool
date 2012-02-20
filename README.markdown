@@ -1,6 +1,18 @@
 # Google Maps Polyline Encoding Tool [![Build Status][buildStatusImage]][buildStatusLink]
 
-A simple PHP class for translating latitude & longitude points into a Google Map encoded [polyline][polylineRef].
+A simple PHP class for translating [polyline][polylineRef] into an [encoded][algorithmRef] strings for Google Maps.
+
+## Install
+
+The easist way to use this library is to clone the GitHub, build a distributed copy, and add the library into your application.
+
+```
+shell~> git clone git://github.com/emcconville/google-map-polyline-encoding-tool.git
+shell~> make
+shell~> cp dist/Polyline.php /path/to/your/application/includes/Polyline.php
+```
+
+## Usage
 
 ### Encoding
 
@@ -27,7 +39,7 @@ Output:
 wxt~Fd`yuOCuErBC?vEoB@
 ```
 
-![Tribune](http://emcconville.com/Polyline/tribune.png)
+![Tribune][tribuneTower]
 
 ### Decoding
 
@@ -68,7 +80,7 @@ array(8) {
 }
 ```
 
-![Tribune](http://emcconville.com/Polyline/dustygroove.png)
+![Tribune][dustyGroove]
 
 ### Singleton
 
@@ -90,6 +102,7 @@ $myPolyline->polyline("dustygroove","kiw~FpoavObBA?fAzEC");
 
 /* ... do work .. */
 
+// Re-establish singleton object
 $anotherPolyline = Polyline::Singleton();
 var_dump( $anotherPolyline->getTribunePoints() );
 var_dump( $anotherPolyline->getDustyGrooveEncoded() );
@@ -126,3 +139,5 @@ array(8) {
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
 [buildStatusLink]: http://travis-ci.org/emcconville/google-map-polyline-encoding-tool
 [buildStatusImage]: https://secure.travis-ci.org/emcconville/google-map-polyline-encoding-tool.png
+[tribuneTower]: http://emcconville.com/Polyline/tribune.png
+[dustyGroove]: http://emcconville.com/Polyline/dustygroove.png
