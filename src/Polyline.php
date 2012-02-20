@@ -39,7 +39,7 @@ class Polyline {
 	private static $instance;
 	
 	/**
-	 * Private constructor. Initailize class throught Polyline::Singleton
+	 * Private constructor. Initialize class through Polyline::Singleton
 	 *
 	 * @see Polyline::Singleton
 	 */
@@ -124,7 +124,7 @@ class Polyline {
 	}
 	
 	/**
-	 * Retreive list of polyline within singleton
+	 * Retrieve list of polyline within singleton
 	 *
 	 * @return array $polylines
 	 */
