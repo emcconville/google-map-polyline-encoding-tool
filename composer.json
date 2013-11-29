@@ -1,0 +1,19 @@
+{
+    "name": "emcconville/google-map-polyline-encoding-tool",
+    "type": "library",
+    "description": "A simple class to handle polyline-encoding for Google Maps",
+    "keywords": ["google", "maps"],
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Eric McConville",
+            "email": "emcconville@emcconville.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "files": ["src/Polyline.php"]
+    }
+}
