@@ -45,12 +45,12 @@ class PolylineTest extends PHPUnit_Framework_TestCase
      * @covers Polyline::getPolyline
      * @depends testPolyline
      */
-    public function testGetPolyline(Polyline $object) 
+    public function testGetPolyline(Polyline $object)
     {
 	    $this->assertEquals($this->encoded,$object->getPolyline($this->polylineName,'encoded'));
 	    $this->assertNull($object->getPolyline('I_Dont_exsits','encoded'));
 	    return $object;
-    } 
+    }
 
     /**
      * @covers Polyline::__call
@@ -94,6 +94,25 @@ class PolylineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->encoded,Polyline::Encode($this->points));
     }
 
+
+    /**
+     * @covers Polyline::Encode
+     * @covers Polyline::Flatten
+     */
+    public function testEncodePrec6()
+    {
+      $locPoints = array(array(49.283589, -0.253025),
+			 array(49.284319, -0.252222),
+			 array(49.284598, -0.253122),
+			 array(49.284713, -0.253404));
+
+      $strEncode = 'i_`_}A`emNsl@eq@mPfw@eFtP';
+
+      // Remove the following lines when you implement this test.
+      $this->assertEquals($strEncode,Polyline::Encode($locPoints, 6));
+    }
+
+
     /**
      * @covers Polyline::Decode
      */
@@ -101,6 +120,25 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     {
         $this->assertCount(count($this->points) * 2, Polyline::Decode($this->encoded));
     }
+
+
+    /**
+     * @covers Polyline::Decode
+     */
+    public function testDecodePrec6()
+    {
+      $strEncode = "q}~~|AdshNkSyBid@_GqBlm@yKfj@";
+
+      $locPoints = array(
+			 49.283049, -0.250691,
+			 49.283375, -0.25063,
+			 49.283972, -0.250502,
+			 49.284029, -0.251245,
+			 49.284234, -0.251937
+			 );
+     $this->assertEquals($locPoints, Polyline::Decode($strEncode, 6));
+    }
+
 
     /**
      * @covers Polyline::Flatten

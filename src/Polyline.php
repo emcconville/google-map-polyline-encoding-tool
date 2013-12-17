@@ -136,16 +136,17 @@ class Polyline {
 	 * Apply Google Polyline algorithm to list of points
 	 *
 	 * @param array $points
+	 * @param integer $precision optional
 	 * @return string $encoded_string
 	 */
-	final public static function Encode($points) {
+  final public static function Encode($points, $precision = 5) {
 		$points = self::Flatten($points);
 		$encoded_string = '';
 		$index = 0;
 		$previous = array(0,0);
 		foreach($points as $number) {
 			$number = (float)($number);
-			$number = floor($number * 1e5);
+			$number = floor($number * pow(10, $precision));
 			$diff = $number - $previous[$index % 2];
 			$previous[$index % 2] = $number;
 			$number = $diff;
@@ -166,9 +167,10 @@ class Polyline {
 	 * Reverse Google Polyline algorithm on encoded string
 	 *
 	 * @param string $string
+	 * @param integer $precision optional
 	 * @return array $points
 	 */
-	final public static function Decode($string) {
+  final public static function Decode($string, $precision = 5) {
 		$points = array();
 		$index = $i = 0;
 		$previous = array(0,0);
@@ -184,7 +186,7 @@ class Polyline {
 			$number = $previous[$index % 2] + $diff;
 			$previous[$index % 2] = $number;
 			$index++;
-			$points[] = $number * 1e-5;
+			$points[] = $number * 1 / pow(10, $precision);
 		}
 		return $points;
 	}
