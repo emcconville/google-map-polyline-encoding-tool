@@ -80,6 +80,15 @@ array(8) {
 }
 ```
 
+### Specify precision
+
+You can use the precision you want, just indicates it when using Encode and Decode
+
+```
+$points = Polyline::Decode($line, 6);
+$line = Polyline::Encode($points, 6);
+```
+
 ![Tribune][dustyGroove]
 
 ### Singleton
