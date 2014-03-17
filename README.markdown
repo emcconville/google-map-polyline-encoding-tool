@@ -4,7 +4,7 @@ A simple PHP class for translating [polyline][polylineRef] into an [encoded][alg
 
 ## Install
 
-The easist way to use this library is to clone the GitHub, build a distributed copy, and add the library into your application.
+The easiest way to use this library is to clone the GitHub, build a distributed copy, and add the library into your application.
 
 ```
 shell~> git clone git://github.com/emcconville/google-map-polyline-encoding-tool.git
@@ -80,16 +80,24 @@ array(8) {
 }
 ```
 
+![Tribune][dustyGroove]
+
+
 ### Specify precision
 
-You can use the precision you want, just indicates it when using Encode and Decode
+Precision defaults to 1e-5 (0.00001) which is expected by Google Map API. Other 
+API's like [OSRM][osrmRef] expect a precision of 1e-6.
+You can adjust the precision you want by sub-classing Polyline, and overwrite
+the `$precision` static property.
 
 ```
-$points = Polyline::Decode($line, 6);
-$line = Polyline::Encode($points, 6);
+class PolylineOSRM extents Polyline
+{
+	protected static $precision = 6;
+}
+$points = PolylineOSRM::Decode($line);
+$line = PolylineOSRM::Encode($points);
 ```
-
-![Tribune][dustyGroove]
 
 ### Singleton
 
@@ -150,3 +158,4 @@ array(8) {
 [buildStatusImage]: https://secure.travis-ci.org/emcconville/google-map-polyline-encoding-tool.png
 [tribuneTower]: http://emcconville.com/Polyline/tribune.png
 [dustyGroove]: http://emcconville.com/Polyline/dustygroove.png
+[osrmRef]: http://map.project-osrm.org/

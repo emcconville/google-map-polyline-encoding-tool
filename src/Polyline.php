@@ -33,6 +33,20 @@ class Polyline {
 	 */
 	private $polylines = array();
 	
+    /**
+     * Default precision level of 1e-5. 
+     *
+     * Overwrite this property in extended class to adjust precision of numbers.
+     * !!!CAUTION!!! 
+     * 1) Adjusting this value will not guarantee that third party
+     *    libraries will understand the change.
+     * 2) Float point arithmetic IS NOT real number arithmetic. PHP's internal
+     *    float precision may contribute to undesired rounding.
+     *
+     * @var int $precision
+     */
+    protected static $precision = 5;
+    
 	/**
 	 * @var Polyline $instance
 	 */
@@ -53,6 +67,7 @@ class Polyline {
 	public static function Singleton() {
 		return self::$instance instanceof self ? self::$instance : self::$instance = new self;
 	}
+
 
 	/**
 	 * Magic method for supporting wildcard getters
@@ -139,14 +154,14 @@ class Polyline {
 	 * @param integer $precision optional
 	 * @return string $encoded_string
 	 */
-  final public static function Encode($points, $precision = 5) {
+  final public static function Encode($points) {
 		$points = self::Flatten($points);
 		$encoded_string = '';
 		$index = 0;
 		$previous = array(0,0);
 		foreach($points as $number) {
 			$number = (float)($number);
-			$number = floor($number * pow(10, $precision));
+			$number = floor($number * pow(10, static::$precision));
 			$diff = $number - $previous[$index % 2];
 			$previous[$index % 2] = $number;
 			$number = $diff;
@@ -170,7 +185,7 @@ class Polyline {
 	 * @param integer $precision optional
 	 * @return array $points
 	 */
-  final public static function Decode($string, $precision = 5) {
+  final public static function Decode($string) {
 		$points = array();
 		$index = $i = 0;
 		$previous = array(0,0);
@@ -186,7 +201,7 @@ class Polyline {
 			$number = $previous[$index % 2] + $diff;
 			$previous[$index % 2] = $number;
 			$index++;
-			$points[] = $number * 1 / pow(10, $precision);
+			$points[] = $number * 1 / pow(10, static::$precision);
 		}
 		return $points;
 	}
