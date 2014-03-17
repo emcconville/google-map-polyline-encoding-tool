@@ -8,6 +8,7 @@ PLY = Polyline.php
 
 GMPET = ${DIST_DIR}/${PLY} 
 SRC_GMPET = ${SRC_DIR}/${PLY} 
+NAMESPACE_GMPET = ${DIST_DIR}/emcconville/${PLY}
 
 GMPET_VER = $(shell git log -1 --pretty=format:%h\ %p\ %t)
 GMPET_DATE = $(shell git log -1 --date=short --pretty=format:%ad)
@@ -31,6 +32,12 @@ polyline: ${SRC_GMPET} | ${DIST_DIR}
 		sed 's/@VERSION@/'"${GMPET_VER}"'/' | \
 		sed 's/@DATE@/'"${GMPET_DATE}"'/' > ${GMPET};
 		
+namespace: polyline
+	@@echo "Patching namespace"
+	@@mkdir -p ${DIST_DIR}/emcconville
+	@@cat ${GMPET} | \
+		sed 's/^\/\/@NAMESPACE@\s*//g' > ${NAMESPACE_GMPET}
+
 test: 
 	@@echo "Testing Polyline"
 	@@if test ! -z ${PHPUNIT}; then \
@@ -39,5 +46,5 @@ test:
 		echo "PHPUnit not installed. Skipping build test."; \
 	fi
 		
-.PHONY: all clean goodbye polyline test
+.PHONY: all clean goodbye polyline namespace test
  

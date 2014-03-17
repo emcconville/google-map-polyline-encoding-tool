@@ -26,6 +26,8 @@
  * @author    E. McConville <emcconville@emcconville.com>
  */
 
+//@NAMESPACE@ namespace emcconville {
+
 class Polyline {
 	
 	/**
@@ -242,3 +244,5 @@ class Polyline {
 		return $pairs;
 	}
 }
+
+//@NAMESPACE@ }

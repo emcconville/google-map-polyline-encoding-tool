@@ -107,6 +107,22 @@ $line = PolylineOSRM::Encode($points);
    used during encoding.
 
 
+### Namespace
+
+By default, no namespace is defined. If a user wishes to have this library under
+a namespace, simply run the following.
+
+```
+shell~> make namespace
+```
+This will copy a namespace-enabled version to `dist/emcconville/Polyline.php`.
+Behavior & usage are preserved.
+
+```php
+use emcconville\Polyline as GooPly;
+$gooString = GooPly::decode($points);
+```
+
 ### Singleton
 
 The Polyline object can be initialized as a single object, and be referenced throughout an application.
