@@ -34,10 +34,10 @@ class Polyline {
 	private $polylines = array();
 	
     /**
-     * Default precision level of 1e-5. 
+     * Default precision level of 1e-5.
      *
      * Overwrite this property in extended class to adjust precision of numbers.
-     * !!!CAUTION!!! 
+     * !!!CAUTION!!!
      * 1) Adjusting this value will not guarantee that third party
      *    libraries will understand the change.
      * 2) Float point arithmetic IS NOT real number arithmetic. PHP's internal
@@ -46,7 +46,7 @@ class Polyline {
      * @var int $precision
      */
     protected static $precision = 5;
-    
+
 	/**
 	 * @var Polyline $instance
 	 */

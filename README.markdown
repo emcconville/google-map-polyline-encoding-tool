@@ -99,6 +99,14 @@ $points = PolylineOSRM::Decode($line);
 $line = PolylineOSRM::Encode($points);
 ```
 
+**Caution**
+
+ - Adjusting the precision level will not guarantee improved accuracy. Existing
+   issues with PHP's internal float point arithmetic can contribute accuracy issues.
+ - Third party libraries will not automatically know what level of precision was
+   used during encoding.
+
+
 ### Singleton
 
 The Polyline object can be initialized as a single object, and be referenced throughout an application.

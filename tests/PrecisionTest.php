@@ -26,15 +26,12 @@ class PrecisionTest extends PHPUnit_Framework_TestCase
                   PrecisionPolyline::Encode($this->points)
               );
     }
-                    
+
     /**
      * @covers Polyline::Decode
      */
     public function testDecodePrecision()
     {
-      $strEncode = "";
-
-      $locPoints = 
      $this->assertEquals(
                   $this->points,
                   PrecisionPolyline::Decode($this->encoded)
