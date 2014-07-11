@@ -9,6 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          bootstrap="tests/bootstrap.php" >
+
     <testsuites>
         <testsuite name="Polyline Test Suite">
             <directory>./tests/</directory>
@@ -22,8 +23,7 @@
     </filter>
 
     <logging>
-	<log type="coverage-html" target="coverage-report-html"/>
+        <log type="coverage-html" target="coverage-report-html"/>
     </logging>
 
 </phpunit>
-
