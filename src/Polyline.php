@@ -92,7 +92,7 @@ class Polyline {
             $node = array_shift($arguments);
             return $this->getPolyline(strtolower($node),strtolower($type));
         } else {
-            throw new BadMethodCallException();
+            throw new BadMethodCallException($method);
         }
         return $return;
     }
@@ -110,6 +110,26 @@ class Polyline {
         return isset($this->polylines[$node])
                     ? $this->polylines[$node][$type]
                     : ($type =='points' ? array() : null);
+    }
+
+     /**
+      * General purpose data method
+      *
+      * @param string polyline name
+      * @param mixed [ string | array ]
+      * @return array
+      */
+    public function polyline($node, $value = '')
+    {
+        $node = strtolower($node);
+
+        if (is_array($value)) {
+            return $this->importPolyArray($node, $value);
+        } else if ($value != '') {
+            return $this->importPolyString($node, $value);
+        }
+
+        return $this->getNode($node);
     }
 
     /**
