@@ -117,7 +117,7 @@ class Polyline {
      *
      * @param string $node polyline name
      * @param array $value
-     * @return array
+     * @return string encoded polyline
      */
     public function importPolyArray($node, $value)
     {
@@ -130,6 +130,37 @@ class Polyline {
             'encoded' => self::Encode($value)
         );
         return $return['encoded'];
+    }
+
+    /**
+     * Imports a polyline specifed in an array of objects,
+     * extracting coordinates from latitude & longitude parameters
+     * of the objects
+     *
+     * @param string $node polyline name
+     * @param array $objs
+     * @return string encoded polyline
+     */
+    public function importPolyObjects($node, $objs)
+    {
+        if (!is_array($objs)) {
+            throw new InvalidArgumentException();
+        }
+
+        $arr = array();
+
+        foreach ($objs as $obj) {
+            if (!is_object($obj)) {
+                throw new InvalidArgumentException();
+            }
+
+            if (!property_exists($obj, 'latitude') || !property_exists($obj, 'longitude')) {
+                throw new InvalidArgumentException();
+            }
+            $arr[] = array($obj->latitude, $obj->longitude);
+        }
+
+        return $this->importPolyArray($node, $arr);
     }
 
     /**
