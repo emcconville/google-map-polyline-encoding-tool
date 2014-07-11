@@ -17,10 +17,6 @@ class PolylineTest extends PHPUnit_Framework_TestCase
             array(41.79949,-87.59206)
         );
 
-    /**
-     * @covers Polyline::Singleton
-     * @covers Polyline::__construct
-     */
     public function testSingleton()
     {
         $object = Polyline::Singleton();
@@ -31,7 +27,8 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testSingleton
      */
-    public function testGooglePolyline(Polyline $object) {
+    public function testGooglePolyline(Polyline $object)
+    {
         // uses example from google maps api docs
         // at https://developers.google.com/maps/documentation/utilities/polylinealgorithm
         $points = array(
@@ -40,26 +37,23 @@ class PolylineTest extends PHPUnit_Framework_TestCase
             array(43.252, -126.453)
         );
 
-        $encoded = $object->polyline($this->polylineName, $points);
+        $encoded = $object->importPolyArray($this->polylineName, $points);
         $this->assertEquals('_p~iF~ps|U_ulLnnqC_mqNvxq`@', $encoded);
     }
 
     /**
-     * @covers Polyline::polyline
-     * @covers Polyline::Encode
-     * @covers Polyline::Flatten
      * @depends testSingleton
      */
-    public function testPolyline(Polyline $object) {
-        $encoded = $object->polyline($this->polylineName,$this->points);
+    public function testPolyline(Polyline $object)
+    {
+        $encoded = $object->importPolyArray($this->polylineName,$this->points);
         $this->assertEquals($encoded,$this->encoded);
-        $hash = $object->getPolylineNode($this->polylineName);
+        $hash = $object->getNode($this->polylineName);
         $this->assertEquals($encoded,$hash['encoded']);
         return $object;
     }
 
     /**
-     * @covers Polyline::getPolyline
      * @depends testPolyline
      */
     public function testGetPolyline(Polyline $object)
@@ -70,7 +64,15 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Polyline::__call
+     * @depends testSingleton
+     */
+    public function testImportPolyString(Polyline $object)
+    {
+        $x = $object->importPolyString('nodeKey', $this->encoded);
+        $this->assertEquals(14, count($x));
+    }
+
+    /**
      * @depends testGetPolyline
      */
     public function testGetters(Polyline $object)
@@ -81,7 +83,6 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     }
 
      /**
-     * @covers Polyline::__call
      * @expectedException BadMethodCallException
      * @depends testPolyline
      */
@@ -92,38 +93,25 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Polyline::listPolylines
      * @depends testGetters
      */
     public function testListPolylines(Polyline $object)
     {
         $list = $object->listPolylines();
-        $this->assertCount(1,$list);
+        $this->assertCount(2, $list);
     }
 
-    /**
-     * @covers Polyline::Encode
-     * @covers Polyline::Flatten
-     */
     public function testEncode()
     {
         // Remove the following lines when you implement this test.
         $this->assertEquals($this->encoded,Polyline::Encode($this->points));
     }
 
-
-    /**
-     * @covers Polyline::Decode
-     */
     public function testDecode()
     {
         $this->assertCount(count($this->points) * 2, Polyline::Decode($this->encoded));
     }
 
-
-    /**
-     * @covers Polyline::Flatten
-     */
     public function testFlatten()
     {
         $paired = array(
@@ -134,9 +122,6 @@ class PolylineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(1,2,3,4,5,6),Polyline::Flatten($paired));
     }
 
-    /**
-     * @covers Polyline::Pair
-     */
     public function testPair()
     {
         $paired = array(
