@@ -1,3 +1,5 @@
 dist
 vendor
 .idea
+tags
+coverage-report-html
