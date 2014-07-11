@@ -53,7 +53,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testPolyline(Polyline $object) {
         $encoded = $object->polyline($this->polylineName,$this->points);
         $this->assertEquals($encoded,$this->encoded);
-        $hash = $object->polyline($this->polylineName);
+        $hash = $object->getPolylineNode($this->polylineName);
         $this->assertEquals($encoded,$hash['encoded']);
         return $object;
     }

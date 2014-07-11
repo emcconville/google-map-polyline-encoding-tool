@@ -109,23 +109,32 @@ class Polyline {
                     : ($type =='points' ? array() : null);
     }
 
-
     /**
      * General purpose data method
      *
      * @param string polyline name
-     * @param mixed [ string | array ] optional
+     * @param mixed [ string | array ]
      * @return array
      */
-    public function polyline($node, $value = 0) {
-        if ($value) {
-            $isArray = is_array($value);
+    public function polyline($node, $value) {
+        if (is_array($value)) {
             $return = $this->polylines[strtolower($node)] = array(
-                'points'  => $isArray ? self::Flatten($value) : self::Decode($value),
-                'encoded' => $isArray ? self::Encode($value) : $value
+                'points'  => self::Flatten($value),
+                'encoded' => self::Encode($value)
             );
-            return $return[$isArray ? 'encoded' : 'points' ];
+            return $return['encoded'];
+        } else if (is_string($value)) {
+            $return = $this->polylines[strtolower($node)] = array(
+                'points'  => self::Decode($value),
+                'encoded' => $value
+            );
+            return $return['points'];
         }
+        throw new InvalidArgumentException();
+    }
+
+    public function getPolylineNode($node)
+    {
         $node = strtolower($node);
         return isset($this->polylines[$node])
             ? $this->polylines[$node]
