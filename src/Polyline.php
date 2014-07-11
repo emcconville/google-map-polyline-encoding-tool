@@ -109,6 +109,7 @@ class Polyline {
                     : ($type =='points' ? array() : null);
     }
 
+
     /**
      * General purpose data method
      *
@@ -116,27 +117,19 @@ class Polyline {
      * @param mixed [ string | array ] optional
      * @return array
      */
-    public function polyline() {
-        $arguments = func_get_args();
-        $return = null;
-        switch (count($arguments)) {
-            case 2 :
-                list($node,$value) = $arguments;
-                $isArray = is_array($value);
-                $return = $this->polylines[strtolower($node)] = array(
-                        'points'  => $isArray ? self::Flatten($value) : self::Decode($value),
-                        'encoded' => $isArray ? self::Encode($value) : $value
-                    );
-                $return = $return[$isArray ? 'encoded' : 'points' ];
-                break;
-            case 1 :
-                $node = strtolower((string)array_shift($arguments));
-                $return = isset($this->polylines[$node])
-                        ? $this->polylines[$node]
-                        : array( 'points' => null, 'encoded' => null );
-                break;
+    public function polyline($node, $value = 0) {
+        if ($value) {
+            $isArray = is_array($value);
+            $return = $this->polylines[strtolower($node)] = array(
+                'points'  => $isArray ? self::Flatten($value) : self::Decode($value),
+                'encoded' => $isArray ? self::Encode($value) : $value
+            );
+            return $return[$isArray ? 'encoded' : 'points' ];
         }
-        return $return;
+        $node = strtolower($node);
+        return isset($this->polylines[$node])
+            ? $this->polylines[$node]
+            : array( 'points' => null, 'encoded' => null );
     }
 
     /**
