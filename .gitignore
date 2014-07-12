@@ -4,3 +4,4 @@ vendor
 .idea
 *.phar
 *.lock
+phpunit.xml
