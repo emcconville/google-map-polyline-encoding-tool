@@ -13,6 +13,9 @@
     "require": {
         "php": ">=5.3"
     },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "2.0.0a2"
+    },
     "autoload": {
         "files": ["src/Polyline.php"]
     }
