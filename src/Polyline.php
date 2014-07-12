@@ -175,6 +175,33 @@ class Polyline
     }
 
     /**
+     * Imports a polyline specifed in an array of objects,
+     * extracting coordinates from latitude & longitude parameters
+     * of the objects
+     *
+     * @param string $node polyline name
+     * @param array $objs
+     * @return string encoded polyline
+     */
+    public function importPolyObjects($node, $objs)
+    {
+        if (!is_array($objs)) {
+            throw new InvalidArgumentException();
+        }
+
+        $arr = array();
+
+        foreach ($objs as $obj) {
+
+            if (property_exists($obj, 'latitude') && property_exists($obj, 'longitude')) {
+                $arr[] = array($obj->latitude, $obj->longitude);
+            }
+        }
+
+        return $this->importPolyArray($node, $arr);
+    }
+
+    /**
      * @return polyline at the specified $node
      */
     public function getNode($node)
