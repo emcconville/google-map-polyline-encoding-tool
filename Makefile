@@ -1,6 +1,7 @@
 SRC_DIR = src
 TEST_DIR = tests
-PHPUNIT ?= `which phpunit 2>/dev/null`
+PHPUNIT ?= vendor/bin/phpunit
+PHPCS ?= vendor/bin/phpcs
 
 PREFIX = .
 DIST_DIR = ${PREFIX}/dist
@@ -27,7 +28,6 @@ goodbye:
 
 polyline: ${SRC_GMPET} | ${DIST_DIR}
 	@@echo "Building Polyline"
-
 	@@cat ${SRC_GMPET} | \
 		sed 's/@VERSION@/'"${GMPET_VER}"'/' | \
 		sed 's/@DATE@/'"${GMPET_DATE}"'/' > ${GMPET};
@@ -47,6 +47,11 @@ test:
 	fi
 
 lint:
-	vendor/bin/phpcs --standard=tests/phpcs-ruleset.xml src tests
+	@@echo "Testing Lint (PHPCS)"
+	@@if test ! -z ${PHPCS}; then \
+		${PHPCS} --standard=phpcs-ruleset.xml src tests ; \
+	else \
+		echo "PHPCS not installed. Skipping lint."; \
+	fi
 
-.PHONY: all clean goodbye polyline namespace test
+.PHONY: all clean goodbye polyline namespace test lint
