@@ -1,50 +1,39 @@
 <?xml version="1.0"?>
 <ruleset name="core3Custom">
-	<description>custom code convention rules</description>
-
-	<arg name="report" value="full"/>
-	<arg name="extensions" value="php"/>
-
-	<rule ref="PEAR.Classes.ClassDeclaration"/>
-	<rule ref="PEAR.ControlStructures.ControlSignature"/>
-	<rule ref="PEAR.Functions.FunctionCallSignature"/>
-	<rule ref="PEAR.Functions.ValidDefaultValue"/>
-	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
-	<rule ref="Squiz.Functions.GlobalFunction"/>
-
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
-		<properties>
-			<property name="ignoreBlankLines" value="true"/>
-		</properties>
-	</rule>
-
-	<rule ref="Zend">
-		<exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
-	</rule>
-
-	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
-	<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
- 	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-
- 	<!-- PHP keywords MUST be in lower case -->
- 	<rule ref="Generic.PHP.LowerCaseKeyword"/>
-
- 	<!-- The PHP constants true, false, and null MUST be in lower case -->
- 	<rule ref="Generic.PHP.LowerCaseConstant"/>
-
- 	<!-- All PHP files MUST use the Unix line ending -->
-	<rule ref="Generic.Files.LineEndings">
-		<properties>
-			<property name="eolChar" value="\n"/>
-		</properties>
-	</rule>
-
-	<rule ref="Generic.Files.LineLength">
-		<properties>
-			<property name="lineLimit" value="120"/>
-		</properties>
-	</rule>
-
+  <description>custom code convention rules</description>
+  <arg name="report" value="full"/>
+  <arg name="extensions" value="php"/>
+  <rule ref="PEAR.Classes.ClassDeclaration"/>
+  <rule ref="PEAR.ControlStructures.ControlSignature"/>
+  <rule ref="PEAR.Functions.FunctionCallSignature"/>
+  <rule ref="PEAR.Functions.ValidDefaultValue"/>
+  <rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
+  <rule ref="Squiz.Functions.GlobalFunction"/>
+  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+    <properties>
+      <property name="ignoreBlankLines" value="true"/>
+    </properties>
+  </rule>
+  <rule ref="Zend">
+    <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+  </rule>
+  <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+  <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+  <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+  <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+  <!-- PHP keywords MUST be in lower case -->
+  <rule ref="Generic.PHP.LowerCaseKeyword"/>
+  <!-- The PHP constants true, false, and null MUST be in lower case -->
+  <rule ref="Generic.PHP.LowerCaseConstant"/>
+  <!-- All PHP files MUST use the Unix line ending -->
+  <rule ref="Generic.Files.LineEndings">
+    <properties>
+      <property name="eolChar" value="\n"/>
+    </properties>
+  </rule>
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="120"/>
+    </properties>
+  </rule>
 </ruleset>
-
