@@ -3,3 +3,4 @@ vendor
 .idea
 tags
 coverage-report-html
+composer.lock
