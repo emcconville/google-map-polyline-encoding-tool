@@ -11,10 +11,10 @@ GMPET = ${DIST_DIR}/${PLY}
 SRC_GMPET = ${SRC_DIR}/${PLY}
 NAMESPACE_GMPET = ${DIST_DIR}/emcconville/${PLY}
 
-GMPET_VER = $(shell git log -1 --pretty=format:%h\ %p\ %t)
+GMPET_VER = $(shell git describe)
 GMPET_DATE = $(shell git log -1 --date=short --pretty=format:%ad)
 
-all: polyline test goodbye
+all: lint polyline test goodbye
 
 ${DIST_DIR}:
 	@@mkdir -p ${DIST_DIR}
@@ -47,7 +47,7 @@ test:
 	fi
 
 lint:
-	@@echo "Testing Lint (PHPCS)"
+	@@echo "Scanning source files"
 	@@if test ! -z ${PHPCS}; then \
 		${PHPCS} --standard=phpcs-ruleset.xml src tests ; \
 	else \
