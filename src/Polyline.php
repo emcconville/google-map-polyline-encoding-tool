@@ -82,7 +82,7 @@ class Polyline
      * @method getPoints( "{Node}") //=> array of points for polyline "Node"
      * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
      */
-    public function __call($method,$arguments)
+    public function __call($method, $arguments)
     {
         $return = null;
         if (preg_match('/^get(.+?)(points|encoded)$/i', $method, $matches)) {
@@ -93,7 +93,7 @@ class Polyline
             $node = array_shift($arguments);
             return $this->getPolyline(strtolower($node), strtolower($type));
         } else {
-            throw new BadMethodCallException();
+            throw new BadMethodCallException($method);
         }
         return $return;
     }
