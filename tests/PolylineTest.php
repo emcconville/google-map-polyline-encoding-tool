@@ -7,14 +7,14 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     protected $polylineName = "HydeParkRecords";
     protected $encoded = '}`c~FlyquOnAE?`B@|HBpGJ?@pI';
     protected $points = array(
-							array(41.79999,-87.58695),
-							array(41.79959,-87.58692),
-							array(41.79959,-87.58741),
-							array(41.79958,-87.58900),
-							array(41.79956,-87.59037),
-							array(41.79950,-87.59037),
-							array(41.79949,-87.59206)
-						);
+            array(41.79999,-87.58695),
+            array(41.79959,-87.58692),
+            array(41.79959,-87.58741),
+            array(41.79958,-87.58900),
+            array(41.79956,-87.59037),
+            array(41.79950,-87.59037),
+            array(41.79949,-87.59206)
+        );
 
     /**
      * @covers Polyline::Singleton
@@ -23,23 +23,24 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testSingleton()
     {
         $object = Polyline::Singleton();
-        $this->assertInstanceOf('Polyline',$object);
+        $this->assertInstanceOf('Polyline', $object);
         return $object;
     }
 
-	/**
-	 * @covers Polyline::polyline
-	 * @covers Polyline::Encode
-	 * @covers Polyline::Flatten
-	 * @depends testSingleton
-	 */
-	public function testPolyline(Polyline $object) {
-		$encoded = $object->polyline($this->polylineName,$this->points);
-		$this->assertEquals($encoded,$this->encoded);
-		$hash = $object->polyline($this->polylineName);
-		$this->assertEquals($encoded,$hash['encoded']);
-		return $object;
-	}
+    /**
+     * @covers Polyline::polyline
+     * @covers Polyline::Encode
+     * @covers Polyline::Flatten
+     * @depends testSingleton
+     */
+    public function testPolyline(Polyline $object)
+    {
+        $encoded = $object->polyline($this->polylineName, $this->points);
+        $this->assertEquals($encoded, $this->encoded);
+        $hash = $object->polyline($this->polylineName);
+        $this->assertEquals($encoded, $hash['encoded']);
+        return $object;
+    }
 
     /**
      * @covers Polyline::getPolyline
@@ -47,31 +48,31 @@ class PolylineTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPolyline(Polyline $object)
     {
-	    $this->assertEquals($this->encoded,$object->getPolyline($this->polylineName,'encoded'));
-	    $this->assertNull($object->getPolyline('I_Dont_exsits','encoded'));
-	    return $object;
+        $this->assertEquals($this->encoded, $object->getPolyline($this->polylineName, 'encoded'));
+        $this->assertNull($object->getPolyline('I_Dont_exsits', 'encoded'));
+        return $object;
     }
 
     /**
      * @covers Polyline::__call
-	 * @depends testGetPolyline
+     * @depends testGetPolyline
      */
     public function testGetters(Polyline $object)
     {
-		$this->assertEquals($this->encoded,$object->getEncoded($this->polylineName));
-		$this->assertEquals($this->encoded,$object->getHydeParkRecordsEncoded());
-		return $object;
+        $this->assertEquals($this->encoded, $object->getEncoded($this->polylineName));
+        $this->assertEquals($this->encoded, $object->getHydeParkRecordsEncoded());
+        return $object;
     }
 
- 	/**
+     /**
      * @covers Polyline::__call
      * @expectedException BadMethodCallException
-	 * @depends testPolyline
+     * @depends testPolyline
      */
     public function testGettersException(Polyline $object)
     {
-		$object->thisMethodFails();
-		return $object;
+        $object->thisMethodFails();
+        return $object;
     }
 
     /**
@@ -81,7 +82,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testListPolylines(Polyline $object)
     {
         $list = $object->listPolylines();
-		$this->assertCount(1,$list);
+        $this->assertCount(1, $list);
     }
 
     /**
@@ -91,9 +92,8 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testEncode()
     {
         // Remove the following lines when you implement this test.
-        $this->assertEquals($this->encoded,Polyline::Encode($this->points));
+        $this->assertEquals($this->encoded, Polyline::Encode($this->points));
     }
-
 
     /**
      * @covers Polyline::Decode
@@ -103,18 +103,17 @@ class PolylineTest extends PHPUnit_Framework_TestCase
         $this->assertCount(count($this->points) * 2, Polyline::Decode($this->encoded));
     }
 
-
     /**
      * @covers Polyline::Flatten
      */
     public function testFlatten()
     {
         $paired = array(
-        	array(1,2),
-			array(3,4),
-			array(5,6)
+            array(1,2),
+            array(3,4),
+            array(5,6)
         );
-        $this->assertEquals(array(1,2,3,4,5,6),Polyline::Flatten($paired));
+        $this->assertEquals(array(1,2,3,4,5,6), Polyline::Flatten($paired));
     }
 
     /**
@@ -123,10 +122,10 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testPair()
     {
         $paired = array(
-        	array(1,2),
-			array(3,4),
-			array(5,6)
+            array(1,2),
+            array(3,4),
+            array(5,6)
         );
-        $this->assertEquals($paired,Polyline::Pair(array(1,2,3,4,5,6)));
+        $this->assertEquals($paired, Polyline::Pair(array(1,2,3,4,5,6)));
     }
 }
