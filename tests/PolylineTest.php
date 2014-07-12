@@ -43,6 +43,27 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @depends testSingleton
+     */
+    public function testGetNode(Polyline $object)
+    {
+       $encoded = $object->importPolyArray($this->polylineName, $this->points);
+       $this->assertEquals($encoded, $this->encoded);
+       $hash = $object->getNode($this->polylineName);
+       $this->assertEquals($encoded, $hash['encoded']);
+       return $object;
+    }
+
+    /**
+     * @depends testSingleton
+     */
+    public function testImportPolyString(Polyline $object)
+    {
+        $x = $object->importPolyString('nodeKey', $this->encoded);
+        $this->assertEquals(14, count($x));
+    }
+
+    /**
      * @covers Polyline::getPolyline
      * @depends testPolyline
      */
@@ -82,7 +103,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     public function testListPolylines(Polyline $object)
     {
         $list = $object->listPolylines();
-        $this->assertCount(1, $list);
+        $this->assertCount(2, $list);
     }
 
     /**
