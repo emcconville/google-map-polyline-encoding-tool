@@ -33,7 +33,8 @@ class PolylineTest extends PHPUnit_Framework_TestCase
      * @covers Polyline::Flatten
      * @depends testSingleton
      */
-    public function testPolyline(Polyline $object) {
+    public function testPolyline(Polyline $object)
+    {
         $encoded = $object->polyline($this->polylineName,$this->points);
         $this->assertEquals($encoded,$this->encoded);
         $hash = $object->polyline($this->polylineName);
@@ -94,7 +95,6 @@ class PolylineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->encoded,Polyline::Encode($this->points));
     }
 
-
     /**
      * @covers Polyline::Decode
      */
@@ -102,7 +102,6 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     {
         $this->assertCount(count($this->points) * 2, Polyline::Decode($this->encoded));
     }
-
 
     /**
      * @covers Polyline::Flatten

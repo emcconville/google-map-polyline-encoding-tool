@@ -28,8 +28,8 @@
 
 //@NAMESPACE@ namespace emcconville {
 
-class Polyline {
-
+class Polyline
+{
     /**
      * @var array $polylines
      */
@@ -70,7 +70,6 @@ class Polyline {
         return self::$instance instanceof self ? self::$instance : self::$instance = new self;
     }
 
-
     /**
      * Magic method for supporting wildcard getters
      *
@@ -80,7 +79,8 @@ class Polyline {
      * @method getPoints( "{Node}") //=> array of points for polyline "Node"
      * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
      */
-    public function __call($method,$arguments) {
+    public function __call($method,$arguments)
+    {
         $return = null;
         if (preg_match('/^get(.+?)(points|encoded)$/i',$method,$matches)) {
             list($all,$node,$type) = $matches;
@@ -101,7 +101,8 @@ class Polyline {
      * @param string $type
      * @return mixed
      */
-    public function getPolyline($node, $type) {
+    public function getPolyline($node, $type)
+    {
         $node = strtolower($node);
         $type = in_array($type,array('points','encoded')) ? $type : 'encoded';
         return isset($this->polylines[$node])
@@ -116,7 +117,8 @@ class Polyline {
      * @param mixed [ string | array ] optional
      * @return array
      */
-    public function polyline() {
+    public function polyline()
+    {
         $arguments = func_get_args();
         $return = null;
         switch (count($arguments)) {
@@ -144,7 +146,8 @@ class Polyline {
      *
      * @return array $polylines
      */
-    public function listPolylines() {
+    public function listPolylines()
+    {
         return $return = array_keys($this->polylines);
     }
 
@@ -155,7 +158,8 @@ class Polyline {
      * @param integer $precision optional
      * @return string $encoded_string
      */
-    final public static function Encode($points) {
+    final public static function Encode($points)
+    {
         $points = self::Flatten($points);
         $encoded_string = '';
         $index = 0;
@@ -186,7 +190,8 @@ class Polyline {
      * @param integer $precision optional
      * @return array $points
      */
-    final public static function Decode($string) {
+    final public static function Decode($string)
+    {
         $points = array();
         $index = $i = 0;
         $previous = array(0,0);
@@ -213,7 +218,8 @@ class Polyline {
      * @param array $array
      * @return array $flatten
      */
-    final public static function Flatten($array) {
+    final public static function Flatten($array)
+    {
         $flatten = array();
         foreach(array_values($array) as $node) {
             if (is_array($node)) {
@@ -231,7 +237,8 @@ class Polyline {
      * @param array $list
      * @return array $pairs
      */
-    final public static function Pair($list) {
+    final public static function Pair($list)
+    {
         $pairs = array();
         if(!is_array($list)) { return $pairs; }
         do {

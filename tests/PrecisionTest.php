@@ -3,6 +3,7 @@ class PrecisionPolyline extends Polyline
 {
     protected static $precision = 6;
 }
+
 class PrecisionTest extends PHPUnit_Framework_TestCase
 {
     protected $encoded = 'q}~~|AdshNkSsBid@eGqBlm@yKhj@bA?';
