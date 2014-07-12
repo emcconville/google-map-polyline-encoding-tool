@@ -59,14 +59,17 @@ class Polyline
      *
      * @see Polyline::Singleton
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Static instance method
      *
      * @return Polyline
      */
-    public static function Singleton() {
+    public static function Singleton()
+    {
         return self::$instance instanceof self ? self::$instance : self::$instance = new self;
     }
 
@@ -82,13 +85,13 @@ class Polyline
     public function __call($method,$arguments)
     {
         $return = null;
-        if (preg_match('/^get(.+?)(points|encoded)$/i',$method,$matches)) {
+        if (preg_match('/^get(.+?)(points|encoded)$/i', $method, $matches)) {
             list($all,$node,$type) = $matches;
-            return $this->getPolyline(strtolower($node),strtolower($type));
-        } elseif (preg_match('/^get(points|encoded)$/i',$method,$matches)) {
+            return $this->getPolyline(strtolower($node), strtolower($type));
+        } elseif (preg_match('/^get(points|encoded)$/i', $method, $matches)) {
             list($all,$type) = $matches;
             $node = array_shift($arguments);
-            return $this->getPolyline(strtolower($node),strtolower($type));
+            return $this->getPolyline(strtolower($node), strtolower($type));
         } else {
             throw new BadMethodCallException();
         }
@@ -104,7 +107,7 @@ class Polyline
     public function getPolyline($node, $type)
     {
         $node = strtolower($node);
-        $type = in_array($type,array('points','encoded')) ? $type : 'encoded';
+        $type = in_array($type, array('points','encoded')) ? $type : 'encoded';
         return isset($this->polylines[$node])
                     ? $this->polylines[$node][$type]
                     : ($type =='points' ? array() : null);
@@ -122,7 +125,7 @@ class Polyline
         $arguments = func_get_args();
         $return = null;
         switch (count($arguments)) {
-            case 2 :
+            case 2:
                 list($node,$value) = $arguments;
                 $isArray = is_array($value);
                 $return = $this->polylines[strtolower($node)] = array(
@@ -131,7 +134,7 @@ class Polyline
                     );
                 $return = $return[$isArray ? 'encoded' : 'points' ];
                 break;
-            case 1 :
+            case 1:
                 $node = strtolower((string)array_shift($arguments));
                 $return = isset($this->polylines[$node])
                         ? $this->polylines[$node]
@@ -144,7 +147,7 @@ class Polyline
     /**
      * Retrieve list of polyline within singleton
      *
-     * @return array $polylines
+     * @return array polylines
      */
     public function listPolylines()
     {
@@ -156,15 +159,15 @@ class Polyline
      *
      * @param array $points
      * @param integer $precision optional
-     * @return string $encoded_string
+     * @return string encoded string
      */
     final public static function Encode($points)
     {
         $points = self::Flatten($points);
-        $encoded_string = '';
+        $encodedString = '';
         $index = 0;
         $previous = array(0,0);
-        foreach($points as $number) {
+        foreach ($points as $number) {
             $number = (float)($number);
             $number = floor($number * pow(10, static::$precision));
             $diff = $number - $previous[$index % 2];
@@ -173,14 +176,14 @@ class Polyline
             $index++;
             $number = ($number < 0) ? ~($number << 1) : ($number << 1);
             $chunk = '';
-            while($number >= 0x20) {
+            while ($number >= 0x20) {
                 $chunk .= chr((0x20 | ($number & 0x1f)) + 63);
                 $number >>= 5;
             }
             $chunk .= chr($number + 63);
-            $encoded_string .= $chunk;
+            $encodedString .= $chunk;
         }
-        return $encoded_string;
+        return $encodedString;
     }
 
     /**
@@ -188,7 +191,7 @@ class Polyline
      *
      * @param string $string
      * @param integer $precision optional
-     * @return array $points
+     * @return array points
      */
     final public static function Decode($string)
     {
@@ -198,7 +201,7 @@ class Polyline
         while ($i < strlen($string)) {
             $shift = $result = 0x00;
             do {
-                $bit = ord(substr($string,$i++)) - 63;
+                $bit = ord(substr($string, $i++)) - 63;
                 $result |= ($bit & 0x1f) << $shift;
                 $shift += 5;
             } while ($bit >= 0x20);
@@ -216,14 +219,14 @@ class Polyline
      * Reduce multi-dimensional to single list
      *
      * @param array $array
-     * @return array $flatten
+     * @return array flattened
      */
     final public static function Flatten($array)
     {
         $flatten = array();
-        foreach(array_values($array) as $node) {
+        foreach (array_values($array) as $node) {
             if (is_array($node)) {
-                $flatten = array_merge($flatten,self::Flatten($node));
+                $flatten = array_merge($flatten, self::Flatten($node));
             } else {
                 $flatten[] = $node;
             }
@@ -235,12 +238,14 @@ class Polyline
      * Concat list into pairs of points
      *
      * @param array $list
-     * @return array $pairs
+     * @return array pairs
      */
     final public static function Pair($list)
     {
         $pairs = array();
-        if(!is_array($list)) { return $pairs; }
+        if (!is_array($list)) {
+            return $pairs;
+        }
         do {
             $pairs[] = array(
                     array_shift($list),
