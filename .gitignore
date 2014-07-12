@@ -1,6 +1,6 @@
 dist
+tags
 vendor
 .idea
-tags
-coverage-report-html
-composer.lock
+*.phar
+*.lock
