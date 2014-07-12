@@ -31,7 +31,8 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testSingleton
      */
-    public function testGooglePolyline(Polyline $object) {
+    public function testGooglePolyline(Polyline $object)
+    {
         // uses example from google maps api docs
         // at https://developers.google.com/maps/documentation/utilities/polylinealgorithm
         $points = array(
@@ -78,6 +79,24 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     {
         $x = $object->importPolyString('nodeKey', $this->encoded);
         $this->assertEquals(14, count($x));
+    }
+
+    /**
+     * @depends testSingleton
+     * @expectedException InvalidArgumentException
+     */
+    public function testImportPolyArrayBadInput(Polyline $object)
+    {
+        $encoded = $object->importPolyArray($this->polylineName, null);
+    }
+
+    /**
+     * @depends testSingleton
+     * @expectedException InvalidArgumentException
+     */
+    public function testImportPolyStringBadInput(Polyline $object)
+    {
+        $encoded = $object->importPolyString($this->polylineName, null);
     }
 
     /**
