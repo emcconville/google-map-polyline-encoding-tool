@@ -2,6 +2,27 @@
 
 A simple PHP class for translating [polyline][polylineRef] into an [encoded][algorithmRef] strings for Google Maps.
 
+## Family
+
+|Requires|[google-map-polyline-encoding-tool][l1]|[polyline-encoder][l2]|[php_polyline][l3]|
+|:-------|:-------------------------------------:|:--------------------:|:----------------:|
+|PHP     | 5.3                                   | 5.4                  | C-API            |
+
+|Supports|[google-map-polyline-encoding-tool][l1]|[polyline-encoder][l2]|[php_polyline][l3]|
+|:-------|:-------------------------------------:|:--------------------:|:----------------:|
+|Google  |&#10004;                               |&#10004;              |&#10004;          |
+|Bing    |                                       |&#10004;              |                  |
+|Precision|&#10004;                              |&#10004;              |&#10004;          |
+|Tuple   |                                       |&#10004;              |&#10004;          |
+|Traits  |                                       |&#10004;              |                  |
+|Abstraction|                                    |&#10004;              |                  |
+
+|Hosted   |[google-map-polyline-encoding-tool][l1]|[polyline-encoder][l2]|[php_polyline][l3]|
+|:--------|:-------------------------------------:|:--------------------:|:----------------:|
+|Github   |&#10004;                               |&#10004;              |                  |
+|Bitbucket|                                       |&#10004;              |&#10004;          |
+
+
 ## Install
 
 The easiest way to use this library is to clone the GitHub, build a distributed copy, and add the library into your application.
@@ -183,3 +204,6 @@ array(8) {
 [tribuneTower]: http://emcconville.com/Polyline/tribune.png
 [dustyGroove]: http://emcconville.com/Polyline/dustygroove.png
 [osrmRef]: http://map.project-osrm.org/
+[l1]: https://github.com/emcconville/google-map-polyline-encoding-tool
+[l2]: https://bitbucket.org/emcconville/polyline-encoder
+[l3]: https://bitbucket.org/emcconville/php_polyline
