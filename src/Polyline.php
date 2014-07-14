@@ -82,7 +82,7 @@ class Polyline
      * @method getPoints( "{Node}") //=> array of points for polyline "Node"
      * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
      */
-    public function __call($method,$arguments)
+    public function __call($method, $arguments)
     {
         $return = null;
         if (preg_match('/^get(.+?)(points|encoded)$/i', $method, $matches)) {
@@ -93,7 +93,7 @@ class Polyline
             $node = array_shift($arguments);
             return $this->getPolyline(strtolower($node), strtolower($type));
         } else {
-            throw new BadMethodCallException();
+            throw new BadMethodCallException($method);
         }
         return $return;
     }
@@ -120,28 +120,69 @@ class Polyline
      * @param mixed [ string | array ] optional
      * @return array
      */
-    public function polyline()
+    public function polyline($node, $value = '')
     {
-        $arguments = func_get_args();
-        $return = null;
-        switch (count($arguments)) {
-            case 2:
-                list($node,$value) = $arguments;
-                $isArray = is_array($value);
-                $return = $this->polylines[strtolower($node)] = array(
-                        'points'  => $isArray ? self::Flatten($value) : self::Decode($value),
-                        'encoded' => $isArray ? self::Encode($value) : $value
-                    );
-                $return = $return[$isArray ? 'encoded' : 'points' ];
-                break;
-            case 1:
-                $node = strtolower((string)array_shift($arguments));
-                $return = isset($this->polylines[$node])
-                        ? $this->polylines[$node]
-                        : array( 'points' => null, 'encoded' => null );
-                break;
+        $node = strtolower($node);
+
+        if (is_array($value)) {
+            return $this->importPolyArray($node, $value);
+        } else if ($value != '') {
+            return $this->importPolyString($node, $value);
         }
-        return $return;
+
+        return $this->getNode($node);
+    }
+
+    /**
+     * Imports a polyline specifed in an array of arrays
+     *
+     * @param string $node polyline name
+     * @param array $value
+     * @return string encoded polyline
+     */
+    public function importPolyArray($node, $value)
+    {
+        if (!is_array($value)) {
+            throw new InvalidArgumentException();
+        }
+
+        $return = $this->polylines[strtolower($node)] = array(
+            'points'  => self::Flatten($value),
+            'encoded' => self::Encode($value)
+        );
+        return $return['encoded'];
+    }
+
+    /**
+     * Imports a encoded polyline to the internal buffer
+     * @param string $node polyline name
+     * @param string $value
+     * @return decoded polyline
+     */
+    public function importPolyString($node, $value)
+    {
+        if (!is_string($value)) {
+            throw new InvalidArgumentException();
+        }
+
+        $node = strtolower($node);
+
+        $return = $this->polylines[$node] = array(
+            'points'  => self::Decode($value),
+            'encoded' => $value
+        );
+        return $return['points'];
+    }
+
+    /**
+     * @return polyline at the specified $node
+     */
+    public function getNode($node)
+    {
+        $node = strtolower($node);
+        return isset($this->polylines[$node])
+            ? $this->polylines[$node]
+            : array('points' => null, 'encoded' => null);
     }
 
     /**
