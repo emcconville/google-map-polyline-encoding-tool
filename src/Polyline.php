@@ -224,13 +224,12 @@ class Polyline
     final public static function Flatten($array)
     {
         $flatten = array();
-        foreach (array_values($array) as $node) {
-            if (is_array($node)) {
-                $flatten = array_merge($flatten, self::Flatten($node));
-            } else {
-                $flatten[] = $node;
+        array_walk_recursive(
+            $array,
+            function ($current) use (&$flatten) {
+                $flatten[] = $current;
             }
-        }
+        );
         return $flatten;
     }
 
