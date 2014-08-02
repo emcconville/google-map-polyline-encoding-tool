@@ -1,18 +1,26 @@
 # Contributing
 
-Thanks for checking out [google-map-polyline-encoding-tool][l1]. Before creating a pull-request, please note the following items.
+Thanks for helping [google-map-polyline-encoding-tool][l1].
 
 ## Project Goal
 
-This library exists as a PHP reference point for Google's [Encoded Polyline Algorithm Format][ref]. Any improvements in documentation & performance are very welcome. Ideally, this library will be reduced to basic encode/decode functions, and superseded by [advanced & elegant][l2] libraries.
+This library exists as a PHP reference point for Google's [Encoded Polyline Algorithm Format][ref]. Any improvements in documentation & performance are very welcome. Ideally, this library will be reduced to basic encode/decode functions, and superseded by other [advanced & elegant][l2] libraries.
 
-### Please
+Review the following items before creating a pull-request.
 
-Before submitting a pull request, complete the following...
+### Please Do
 
-- [ ] Ensure that code-coverage meets, or beats, previous tag.
-- [ ] Run PHPCS's lint on affected files.
-- [ ] Can this change be applied to other polyline-encoding libraries. 
+
+Ensure that code-coverage meets, or beats, previous tag.
+
+
+    $ make coverage
+
+Run PHPCS's lint on affected files.
+
+    $ make lint
+
+
 
 
  [ref]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html

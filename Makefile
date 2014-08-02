@@ -46,6 +46,14 @@ test:
 		echo "PHPUnit not installed. Skipping build test."; \
 	fi
 
+coverage:
+	@@echo "Generating Code-Coverage report"
+	@@if test ! -z ${PHPUNIT}; then \
+		${PHPUNIT} --coverage-text ; \
+	else \
+		echo "PHPUnit not installed. Skipping build test."; \
+	fi
+
 lint:
 	@@echo "Scanning source files"
 	@@if test ! -z ${PHPCS}; then \
@@ -54,4 +62,4 @@ lint:
 		echo "PHPCS not installed. Skipping lint."; \
 	fi
 
-.PHONY: all clean goodbye polyline namespace test lint
+.PHONY: all clean goodbye polyline namespace test coverage lint
