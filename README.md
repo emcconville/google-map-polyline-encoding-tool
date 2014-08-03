@@ -2,7 +2,8 @@
 
 [![Build Status][buildStatusImage]][buildStatusLink]
 
-A simple PHP class for translating [polyline][polylineRef] into an [encoded][algorithmRef] strings for Google Maps.
+A simple PHP class for translating [polyline][polylineRef] into an 
+[encoded][algorithmRef] strings for Google Maps.
 
 ## Install
 
@@ -12,9 +13,9 @@ Use [composer][composer].
 $ curl -sS https://getcomposer.org/installer | php
 $ cat > composer.json <<EOF
 {
- "require": {
-  "emcconville/google-map-polyline-encoding-tool" : ">=1.2.1"
- }
+   "require": {
+      "emcconville/google-map-polyline-encoding-tool" : ">=1.2.1"
+   }
 }
 EOF
 $ php composer.phar install
@@ -33,8 +34,6 @@ $ cp dist/Polyline.php /path/to/your/application/includes/Polyline.php
 ### Encoding
 
 ```php
-require_once 'Polyline.php';
-
 // Points to encode
 $points = array(
         array(41.89084,-87.62386),
@@ -44,7 +43,7 @@ $points = array(
         array(41.89084,-87.62386)
     );
 
-print Polyline::Encode($points);
+$encoded = Polyline::Encode($points);
 //=> wxt~Fd`yuOCuErBC?vEoB@
 ```
 
@@ -53,18 +52,16 @@ print Polyline::Encode($points);
 ### Decoding
 
 ```php
-
-require_once 'Polyline.php';
-
 // String to decode
-$str    = "kiw~FpoavObBA?fAzEC";
+$encoded = "kiw~FpoavObBA?fAzEC";
 
-$points = Polyline::Decode($str);
+$points = Polyline::Decode($encoded);
 //=> array(
 //     41.90374,-87.66729,41.90324,-87.66728,
 //     41.90324,-87.66764,41.90214,-87.66762
 //   );
 
+// Or list of tuples
 $points = Polyline::Pair($points);
 //=> array(
 //     array(41.90374,-87.66729),
@@ -119,7 +116,10 @@ $gooString = GooPly::decode($points);
 
 ## Family
 
-This library exists as a PHP reference point for Google's [Encoded Polyline Algorithm Format][algorithmRef]. There is also a [C implementation][l3], and a [namespace/trait library][l2] under active development
+This library exists as a PHP reference point for Google's 
+[Encoded Polyline Algorithm Format][algorithmRef]. There is also a 
+[C implementation][l3], and a [namespace/trait library][l2] under active 
+development.
 
 |Requires|[google-map-polyline-encoding-tool][l1]|[polyline-encoder][l2]|[php_polyline][l3]|
 |:-------|:-------------------------------------:|:--------------------:|:----------------:|
