@@ -82,7 +82,7 @@ You can adjust the precision you want by sub-classing Polyline, and overwrite
 the `$precision` static property.
 
 ```php
-class PolylineOSRM extents Polyline
+class PolylineOSRM extends Polyline
 {
 	protected static $precision = 6;
 }
