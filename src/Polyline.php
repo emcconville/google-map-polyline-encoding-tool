@@ -32,6 +32,7 @@ class Polyline
 {
     /**
      * @var array $polylines
+     * @deprecated
      */
     private $polylines = array();
 
@@ -55,21 +56,15 @@ class Polyline
     private static $instance;
 
     /**
-     * Private constructor. Initialize class through Polyline::Singleton
-     *
-     * @see Polyline::Singleton
-     */
-    private function __construct()
-    {
-    }
-
-    /**
      * Static instance method
      *
      * @return Polyline
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public static function Singleton()
     {
+        trigger_error('Polyline::Singleton deprecated.', E_USER_DEPRECATED);
         return self::$instance instanceof self ? self::$instance : self::$instance = new self;
     }
 
@@ -81,9 +76,12 @@ class Polyline
      * @method get{Node}Encoded(  ) //=> encoded string  for polyline "Node"
      * @method getPoints( "{Node}") //=> array of points for polyline "Node"
      * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function __call($method,$arguments)
     {
+        trigger_error('Polyline::__call('.$method.') deprecated.', E_USER_DEPRECATED);
         $return = null;
         if (preg_match('/^get(.+?)(points|encoded)$/i', $method, $matches)) {
             list($all,$node,$type) = $matches;
@@ -103,9 +101,12 @@ class Polyline
      * @param string $node
      * @param string $type
      * @return mixed
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function getPolyline($node, $type)
     {
+        trigger_error('Polyline::getPolyline deprecated.', E_USER_DEPRECATED);
         $node = strtolower($node);
         $type = in_array($type, array('points','encoded')) ? $type : 'encoded';
         return isset($this->polylines[$node])
@@ -119,9 +120,12 @@ class Polyline
      * @param string polyline name
      * @param mixed [ string | array ] optional
      * @return array
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function polyline()
     {
+        trigger_error('Polyline::polyline deprecated.', E_USER_DEPRECATED);
         $arguments = func_get_args();
         $return = null;
         switch (count($arguments)) {
@@ -148,9 +152,12 @@ class Polyline
      * Retrieve list of polyline within singleton
      *
      * @return array polylines
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function listPolylines()
     {
+        trigger_error('Polyline::listPolylines deprecated.', E_USER_DEPRECATED);
         return $return = array_keys($this->polylines);
     }
 
@@ -225,7 +232,7 @@ class Polyline
     {
         $flatten = array();
         array_walk_recursive(
-            $array,
+            $array, // @codeCoverageIgnore
             function ($current) use (&$flatten) {
                 $flatten[] = $current;
             }

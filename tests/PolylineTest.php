@@ -19,6 +19,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Polyline::Singleton
      * @covers Polyline::__construct
+     * @group deprecated
      */
     public function testSingleton()
     {
@@ -32,6 +33,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
      * @covers Polyline::Encode
      * @covers Polyline::Flatten
      * @depends testSingleton
+     * @group deprecated
      */
     public function testPolyline(Polyline $object)
     {
@@ -45,6 +47,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Polyline::getPolyline
      * @depends testPolyline
+     * @group deprecated
      */
     public function testGetPolyline(Polyline $object)
     {
@@ -56,6 +59,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Polyline::__call
      * @depends testGetPolyline
+     * @group deprecated
      */
     public function testGetters(Polyline $object)
     {
@@ -68,6 +72,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
      * @covers Polyline::__call
      * @expectedException BadMethodCallException
      * @depends testPolyline
+     * @group deprecated
      */
     public function testGettersException(Polyline $object)
     {
@@ -78,6 +83,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Polyline::listPolylines
      * @depends testGetters
+     * @group deprecated
      */
     public function testListPolylines(Polyline $object)
     {
@@ -127,5 +133,12 @@ class PolylineTest extends PHPUnit_Framework_TestCase
             array(5,6)
         );
         $this->assertEquals($paired, Polyline::Pair(array(1,2,3,4,5,6)));
+    }
+    /**
+     * @covers Polyline::Pair
+     */
+    public function testPairBadInput()
+    {
+        $this->assertEquals(array(), Polyline::Pair('not a list'));
     }
 }
