@@ -176,7 +176,7 @@ class Polyline
         $previous = array(0,0);
         foreach ($points as $number) {
             $number = (float)($number);
-            $number = floor($number * pow(10, static::$precision));
+            $number = (int)round($number * pow(10, static::$precision));
             $diff = $number - $previous[$index % 2];
             $previous[$index % 2] = $number;
             $number = $diff;
