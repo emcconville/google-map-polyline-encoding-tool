@@ -52,6 +52,7 @@ class Polyline
 
     /**
      * @var Polyline $instance
+     * @deprecated
      */
     private static $instance;
 
