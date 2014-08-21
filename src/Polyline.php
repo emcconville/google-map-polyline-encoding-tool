@@ -56,7 +56,10 @@ class Polyline
      */
     private static $instance;
 
-    public function __construct() {} // Overloading bug #11 
+    public function __construct()
+    {
+      // Overloading bug #11
+    }
 
     /**
      * Static instance method
