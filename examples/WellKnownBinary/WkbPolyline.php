@@ -58,7 +58,7 @@ class WkbPolyline extends Polyline
       }
     }
     
-    return parent::Encode($points);
+    return Polyline::Encode($points);
   }
   
   
