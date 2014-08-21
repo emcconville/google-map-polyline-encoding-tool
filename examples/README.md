@@ -1,6 +1,7 @@
 # Examples
 
-A small collection of solutions to common problems. Each example should be self
-contained, but assumes the common `Polyline` class is loaded.
+A small collection of solutions to common problems. Each example should be a
+bare-bone / self contained object.
 
- - Well-Known Binary Converter [WellKnownBinary](WellKnownBinary)
+ - [Well-Known Binary](WellKnownBinary) converter.
+ - Preview encoded strings with a [SVG transcoder](EncodedToSVG).
