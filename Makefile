@@ -57,7 +57,7 @@ coverage:
 lint:
 	@@echo "Scanning source files"
 	@@if test ! -z ${PHPCS}; then \
-		${PHPCS} --standard=phpcs-ruleset.xml src tests ; \
+		${PHPCS} --standard=phpcs-ruleset.xml src tests examples; \
 	else \
 		echo "PHPCS not installed. Skipping lint."; \
 	fi

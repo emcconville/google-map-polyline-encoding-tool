@@ -23,7 +23,7 @@
  * @copyright 2014 emcconville
  * @license GNU Lesser General Public License <http://www.gnu.org/licenses/lgpl.html>
  * @link https://github.com/emcconville/google-map-polyline-encoding-tool
- * @since v1.2.2
+ * @since v1.2.4
  */
 
 class WkbPolyline extends Polyline
@@ -36,24 +36,42 @@ class WkbPolyline extends Polyline
   protected $endianness;
 
   /**
-   * Close any open file descriptor.
-   */
-  public function __destruct()
-  {
-    if( $this->fd ) {
-        @fclose($this->fd);
-    }
-  }
-
-  /**
    * Parse binary file & converts WKB to google encoded string.
    *
-   * @param string $filename - The path to the binary file to be encded
+   * @param string $filename - The path to the binary file to be encoded.
    * @return string - Encoded string
    */
   public function encodeFromFile($filename)
   {
     $this->fd = fopen($filename, 'rb');
+    $points = $this->parseWkb();
+    fclose($this->fd);
+    
+    return parent::Encode($points);
+  }
+
+  /**
+   * Encoded WKB from blob
+   *
+   * This method will copy the given blob to memory descriptor. There's better
+   * ways to do this.
+   *
+   * @param string $blob - Binary safe string
+   * @return string
+   */
+  public function encodeFromBlob($blob)
+  {
+    $this->fd = fopen('php://memory', 'wb');
+    fwrite($this->fd, $blob);
+    fseek($this->fd, 0);
+    $points = $this->parseWkb();
+    fclose($this->fd);
+    
+    return parent::Encode($points);
+  }
+
+  private function parseWkb()
+  {
     assert(is_resource($this->fd), "Not a resource");
     
     // Read firt byte to determine endianness.
@@ -66,17 +84,15 @@ class WkbPolyline extends Polyline
     $points = array();
     
     // Iterate over cirlces
-    for($i=0,$l=$this->readU32(); $i < $l; $i++ )
-    {
+    for ($i=0,$l=$this->readU32(); $i < $l; $i++ ) {
       // Iterate over points
-      for($j=0,$p=$this->readU32(); $j < $p; $j++ )
-      {
+      for ($j=0,$p=$this->readU32(); $j < $p; $j++ ) {
         $points[] = $this->readDouble(); // latitude
         $points[] = $this->readDouble(); // longitude
       }
     }
     
-    return Polyline::Encode($points);
+    return $points;
   }
 
   /**
@@ -100,8 +116,8 @@ class WkbPolyline extends Polyline
    */
   private function readU32()
   {
-    $uint32 = unpack($this->endianness ? 'Vlong' : 'Nlong', $this->chunk(4));
-    return $uint32['long'];
+    $unsignedLong = unpack($this->endianness ? 'Vlong' : 'Nlong', $this->chunk(4));
+    return $unsignedLong['long'];
   }
 
   /**

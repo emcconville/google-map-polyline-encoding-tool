@@ -27,4 +27,11 @@ $points = Polyline::decode($encoded);
 ```
 ![Cleveland Rocks][cleveland]
 
+```php
+// Or
+$blob = file_get_contents( 'examples/WellKnownBinary/cleveland-mbr.wkb' );
+$encoded = $wkb->encodeFromBlob( $blob );
+//=> 'wz||Fr~vrN?_sbAhwh@??~rbAiwh@?'
+```
+
 [cleveland]: http://emcconville.com/Polyline/cleveland.png
