@@ -10,18 +10,21 @@ can quickly be completed.
 
 ## Usage
 
-    <?php
-    require 'src/Polyline.php';
-    require 'examples/WellKnownBinary/WkbPolyline.php';
-    
-    $wkb = new WkbPolyline();
-    $encoded = $wkb->encodeFromFile( 'examples/WellKnownBinary/cleveland-mbr.wkb' );
-    //=> 'wz||Fr~vrN?_sbAhwh@??~rbAiwh@?'
-    print json_encode( Polyline::decode($encoded) );
-    //=> [
-    //    41.60444,-81.87898,
-    //    41.60444,-81.53274,
-    //    41.39063,-81.53274,
-    //    41.39063,-81.87898,
-    //    41.60444,-81.87898
-    // ]
+```php
+<?php
+require 'src/Polyline.php';
+require 'examples/WellKnownBinary/WkbPolyline.php';
+
+$wkb = new WkbPolyline();
+$encoded = $wkb->encodeFromFile( 'examples/WellKnownBinary/cleveland-mbr.wkb' );
+//=> 'wz||Fr~vrN?_sbAhwh@??~rbAiwh@?'
+$points = Polyline::decode($encoded);
+//=> array(
+//    41.60444, -81.87898, 41.60444, -81.53274,
+//    41.39063, -81.53274, 41.39063, -81.87898,
+//    41.60444, -81.87898
+// )
+```
+![Cleveland Rocks][cleveland]
+
+[cleveland]: http://emcconville.com/Polyline/cleveland.png

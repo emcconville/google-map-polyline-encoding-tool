@@ -18,75 +18,112 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package   WkbPolyline
- * @since     v1.2.2
+ * @package WkbPolyline
+ * @author E. McConville <emcconville@emcconville.com>
  * @copyright 2014 emcconville
- * @license   GNU Lesser General Public License <http://www.gnu.org/licenses/lgpl.html>
- * @link      https://github.com/emcconville/google-map-polyline-encoding-tool
- * @author    E. McConville <emcconville@emcconville.com>
+ * @license GNU Lesser General Public License <http://www.gnu.org/licenses/lgpl.html>
+ * @link https://github.com/emcconville/google-map-polyline-encoding-tool
+ * @since v1.2.2
  */
 
 class WkbPolyline extends Polyline
 {
   const ENDIAN_BIG    =  0;
   const ENDIAN_LITTLE =  1;
-  
+
   protected $fd;
   protected $cursor;
   protected $endianness;
-  
+
+  /**
+   * Close any open file descriptor.
+   */
+  public function __destruct()
+  {
+    if( $this->fd ) {
+        @fclose($this->fd);
+    }
+  }
+
+  /**
+   * Parse binary file & converts WKB to google encoded string.
+   *
+   * @param string $filename - The path to the binary file to be encded
+   * @return string - Encoded string
+   */
   public function encodeFromFile($filename)
   {
     $this->fd = fopen($filename, 'rb');
-    assert(is_resource($this->fd));
+    assert(is_resource($this->fd), "Not a resource");
     
-    $this->endianness = $this->_readByte();
-    $header = $this->_readU32() % 1000;
-    
+    // Read firt byte to determine endianness.
+    $this->endianness = $this->readByte();
+    // Get unsigned integer, and convert to vector type.
+    $header = $this->readU32() % 1000;
+    // This example will only support `Polygon` shapes
     assert($header == 3, "This example only covers polylines");
     
     $points = array();
     
     // Iterate over cirlces
-    for($i=0,$l=$this->_readU32(); $i < $l; $i++ )
+    for($i=0,$l=$this->readU32(); $i < $l; $i++ )
     {
       // Iterate over points
-      for($j=0,$p=$this->_readU32(); $j < $p; $j++ )
+      for($j=0,$p=$this->readU32(); $j < $p; $j++ )
       {
-        $points[] = $this->_readDouble(); // latitude
-        $points[] = $this->_readDouble(); // longitude
+        $points[] = $this->readDouble(); // latitude
+        $points[] = $this->readDouble(); // longitude
       }
     }
     
     return Polyline::Encode($points);
   }
-  
-  
-  private function _chunk($size=1)
-  {
-    $this->cursor += $size;
-    return fread($this->fd,$size);
-  }
 
-  private function _readDouble()
+  /**
+   * Read 8 bytes and cast to double. Respects file endianness.
+   *
+   * @return double
+   */
+  private function readDouble()
   {
-    $data = $this->_chunk(8);
+    $data = $this->chunk(8);
     if($this->endianness == self::ENDIAN_BIG)
       $data = strrev($data);
-    $double = unpack('ddouble',$data);
-    if(!isset($double['double'])) throw new Exception("Unable to read double");
+    $double = unpack('ddouble', $data);
     return $double['double'];
   }
-  private function _readU32()
+
+  /**
+   * Read 4 bytes and cast to unsigned integer. Respects file endianness.
+   *
+   * @return integer
+   */
+  private function readU32()
   {
-    $uint32 = unpack($this->endianness ? 'Vlong' : 'Nlong', $this->_chunk(4));
-    if(!isset($uint32['long'])) throw new Exception("Unable to read unsigned long");
+    $uint32 = unpack($this->endianness ? 'Vlong' : 'Nlong', $this->chunk(4));
     return $uint32['long'];
   }
 
-  private function _readByte()
+  /**
+   * Read single byte from file descriptor.
+   *
+   * @return integer - Order of byte.
+   */
+  private function readByte()
   {
-    return ord($this->_chunk());
+    return ord($this->chunk());
+  }
+
+  /**
+   * Pulls data directly from file descriptor by given length.
+   *
+   * @param integer $size - Default 1
+   * @return string - Binary safe string.
+   */
+  private function chunk($size=1)
+  {
+    $this->cursor += $size;
+    return fread($this->fd, $size);
   }
 
 }
