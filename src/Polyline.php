@@ -56,6 +56,8 @@ class Polyline
      */
     private static $instance;
 
+//    public function __construct() {}
+
     /**
      * Static instance method
      *
