@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package   Polyline
- * @version   @VERSION@
- * @copyright @DATE@ emcconville
+ * @version   $Id$
+ * @copyright Copyright (c) 2009-2015, E. McConville
  * @license   GNU Lesser General Public License <http://www.gnu.org/licenses/lgpl.html>
  * @link      https://github.com/emcconville/google-map-polyline-encoding-tool
  * @author    E. McConville <emcconville@emcconville.com>
