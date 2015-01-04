@@ -72,7 +72,7 @@ $points = Polyline::Pair($points);
 //   );
 ```
 
-![Tribune][dustyGroove]
+![Records][dustyGroove]
 
 
 ### Specify precision

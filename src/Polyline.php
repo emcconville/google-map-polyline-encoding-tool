@@ -33,6 +33,7 @@ class Polyline
     /**
      * @var array $polylines
      * @deprecated
+     * @ignore
      */
     private $polylines = array();
 
@@ -53,8 +54,14 @@ class Polyline
     /**
      * @var Polyline $instance
      * @deprecated
+     * @ignore
      */
     private static $instance;
+
+    public function __construct()
+    {
+      // Overloading bug #11
+    }
 
     /**
      * Static instance method
@@ -62,6 +69,7 @@ class Polyline
      * @return Polyline
      * @deprecated
      * @codeCoverageIgnore
+     * @ignore
      */
     public static function Singleton()
     {
@@ -79,6 +87,7 @@ class Polyline
      * @method getEncoded("{Node}") //=> encoded string  for polyline "Node"
      * @deprecated
      * @codeCoverageIgnore
+     * @ignore
      */
     public function __call($method,$arguments)
     {
@@ -104,6 +113,7 @@ class Polyline
      * @return mixed
      * @deprecated
      * @codeCoverageIgnore
+     * @ignore
      */
     public function getPolyline($node, $type)
     {
@@ -123,6 +133,7 @@ class Polyline
      * @return array
      * @deprecated
      * @codeCoverageIgnore
+     * @ignore
      */
     public function polyline()
     {
@@ -155,6 +166,7 @@ class Polyline
      * @return array polylines
      * @deprecated
      * @codeCoverageIgnore
+     * @ignore
      */
     public function listPolylines()
     {
