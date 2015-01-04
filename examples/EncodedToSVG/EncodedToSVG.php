@@ -55,7 +55,7 @@ class EncodedToSVG extends Polyline
     public static function decodeToSVG( $encoded )
     {
         // Create list of points
-        $points = parent::Decode($encoded);
+        $points = parent::decode($encoded);
         // Grab first pair
         list($x, $y) = self::_shiftPoint($points);
         // Path will need to start by moving to first coordinate.
@@ -93,7 +93,7 @@ class EncodedToSVG extends Polyline
         );
         return self::_generateSVG($path, $mbr);
     }
-  
+
     /**
      * Shift point tuple from start of list.
      *
@@ -111,7 +111,7 @@ class EncodedToSVG extends Polyline
         $x = array_shift($points);
         return array( $x, $y * -1 );
     }
-  
+
     /**
      * Turn path & MBR into a valid SVG string
      *
@@ -139,12 +139,12 @@ class EncodedToSVG extends Polyline
         // Path
         $p = $dom->createElement('path');
         $p->appendChild(new DomAttr('d', $pathData));
-        
+
         // Pull it all together
         $g->appendChild($p);
         $root->appendChild($g);
         $dom->appendChild($root);
-        
+
         return $dom->saveXML();
     }
 }
