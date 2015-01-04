@@ -1,6 +1,7 @@
 # Google Maps Polyline Encoding Tool
 
 [![Build Status][buildStatusImage]][buildStatusLink]
+[![Coverage Status](https://img.shields.io/coveralls/emcconville/google-map-polyline-encoding-tool.svg)](https://coveralls.io/r/emcconville/google-map-polyline-encoding-tool?branch=master)
 
 A simple PHP class for translating [polyline][polylineRef] into an 
 [encoded][algorithmRef] strings for Google Maps.

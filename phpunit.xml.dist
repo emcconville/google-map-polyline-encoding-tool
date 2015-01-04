@@ -15,9 +15,10 @@
       <group>deprecated</group>
     </exclude>
   </groups>
-  <!--
   <logging>
+    <!--
     <log type="coverage-html" target="dist/coverage-report-html"/>
+    -->
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
   </logging>
-  -->
 </phpunit>
