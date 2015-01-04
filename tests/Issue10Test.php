@@ -1,18 +1,45 @@
 <?php
 /**
- * Issue #10
- * Wrong rounding method for google.
- * @link https://github.com/emcconville/google-map-polyline-encoding-tool/issues/10
+ * This file is part of Google Map Polyline Encoding Tool library.
+ *
+ * PHP Version 5.3
+ *
+ * @category   Mapping
+ * @package    Test
+ * @subpackage Issue10
+ * @author     E. McConville <emcconville@emcconville.com>
+ * @license    https://www.gnu.org/licenses/lgpl.html GNU LGPL, version 3
+ * @link       https://github.com/emcconville/google-map-polyline-encoding-tool
  */
-class Issue10 extends PHPUnit_Framework_TestCase
+
+/**
+ * Issue #10
+ *
+ * Wrong rounding method for google.
+ *
+ * @category   Mapping
+ * @package    Test
+ * @subpackage Issue10
+ * @author     E. McConville <emcconville@emcconville.com>
+ * @license    https://www.gnu.org/licenses/lgpl.html GNU LGPL, version 3
+ * @link       https://github.com/emcconville
+ *             /google-map-polyline-encoding-tool
+ *             /issues/10
+ */
+class Issue10Test extends PHPUnit_Framework_TestCase
 {
-  public function testRounding()
-  {
-    $originalPoints = array(48.000006, 2.000004,48.00001,2.00000);
-    $encoded = Polyline::Encode($originalPoints);
-    $this->assertEquals('a_~cH_seK??', $encoded);
-    $decodedPoints = Polyline::Decode($encoded);
-    $this->assertTrue($decodedPoints[0] === $decodedPoints[2]);
-    $this->assertTrue($decodedPoints[1] === $decodedPoints[3]);
-  }
+    /**
+     * Test rounding issues report by issue #10
+     *
+     * @return NULL
+     */
+    public function testRounding()
+    {
+        $originalPoints = array(48.000006, 2.000004,48.00001,2.00000);
+        $encoded = Polyline::Encode($originalPoints);
+        $this->assertEquals('a_~cH_seK??', $encoded);
+        $decodedPoints = Polyline::Decode($encoded);
+        $this->assertTrue($decodedPoints[0] === $decodedPoints[2]);
+        $this->assertTrue($decodedPoints[1] === $decodedPoints[3]);
+    }
 }
