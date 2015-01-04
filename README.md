@@ -1,6 +1,6 @@
 # Google Maps Polyline Encoding Tool
 
-[![Build Status][buildStatusImage]][buildStatusLink]
+[![Build Status](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool.svg?branch=master)](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool)
 [![Coverage Status](https://img.shields.io/coveralls/emcconville/google-map-polyline-encoding-tool.svg)](https://coveralls.io/r/emcconville/google-map-polyline-encoding-tool?branch=master)
 
 A simple PHP class for translating [polyline][polylineRef] into an 
@@ -74,6 +74,13 @@ $points = Polyline::Pair($points);
 
 ![Records][dustyGroove]
 
+## Examples
+
+See [examples](examples) directory for creative ideas, and please contribute new
+use-cases / hacks.
+
+ - [Well-Known Binary](examples/WellKnownBinary) converter.
+ - Preview encoded strings with a [SVG transcoder](examples/EncodedToSVG).
 
 ### Specify precision
 
