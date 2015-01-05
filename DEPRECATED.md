@@ -1,12 +1,11 @@
 # Deprecated Functionality
 
-
-
 ## Singleton
 
-_Deprecated as of version 1.2.2. Will be removed by 1.3_
+_Deprecated as of version 1.2.2. Removed in 2.0.0_
 
-The Polyline object can be initialized as a single object, and be referenced throughout an application.
+The Polyline object can be initialized as a single object, and be referenced
+throughout an application.
 
 ```php
 <?php
@@ -56,3 +55,11 @@ array(8) {
   double(-87.66762)
 }
 ```
+
+## Makefile
+
+_Removed with 2.0.0_
+
+Nobody uses `make` utility any more, and it did nothing useful but hold
+shortcuts. Moving project-specific commands to [CONTRIBUTING](CONTRIBUTING.md)
+document, and `.gitattributes`.

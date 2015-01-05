@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool.svg?branch=master)](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool)
 [![Coverage Status](https://img.shields.io/coveralls/emcconville/google-map-polyline-encoding-tool.svg)](https://coveralls.io/r/emcconville/google-map-polyline-encoding-tool?branch=master)
+[![Packagist Version](https://img.shields.io/packagist/v/emcconville/google-map-polyline-encoding-tool.svg)](https://packagist.org/packages/emcconville/google-map-polyline-encoding-tool)
 
 A simple PHP class for translating [polyline][polylineRef] into an 
 [encoded][algorithmRef] strings for Google Maps.
@@ -133,8 +134,6 @@ development.
 
 [polylineRef]: http://code.google.com/apis/maps/documentation/javascript/reference.html#Polygon
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
-[buildStatusLink]: http://travis-ci.org/emcconville/google-map-polyline-encoding-tool
-[buildStatusImage]: https://secure.travis-ci.org/emcconville/google-map-polyline-encoding-tool.png
 [tribuneTower]: http://emcconville.com/Polyline/tribune.png
 [dustyGroove]: http://emcconville.com/Polyline/dustygroove.png
 [osrmRef]: http://map.project-osrm.org/
