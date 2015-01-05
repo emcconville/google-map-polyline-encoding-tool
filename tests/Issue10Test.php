@@ -36,9 +36,9 @@ class Issue10Test extends PHPUnit_Framework_TestCase
     public function testRounding()
     {
         $originalPoints = array(48.000006, 2.000004,48.00001,2.00000);
-        $encoded = Polyline::Encode($originalPoints);
+        $encoded = Polyline::encode($originalPoints);
         $this->assertEquals('a_~cH_seK??', $encoded);
-        $decodedPoints = Polyline::Decode($encoded);
+        $decodedPoints = Polyline::decode($encoded);
         $this->assertTrue($decodedPoints[0] === $decodedPoints[2]);
         $this->assertTrue($decodedPoints[1] === $decodedPoints[3]);
     }

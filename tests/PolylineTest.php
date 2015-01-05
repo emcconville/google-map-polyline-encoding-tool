@@ -85,7 +85,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * Smoke test to ensure tuple paring.
      *
-     * @covers Polyline::Pair
+     * @covers Polyline::pair
      *
      * @return NULL
      */
@@ -101,7 +101,7 @@ class PolylineTest extends PHPUnit_Framework_TestCase
     /**
      * Smoke test to cover bad user import.
      *
-     * @covers Polyline::Pair
+     * @covers Polyline::pair
      *
      * @return NULL
      */

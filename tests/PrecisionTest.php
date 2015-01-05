@@ -58,8 +58,8 @@ class PrecisionTest extends PHPUnit_Framework_TestCase
     /**
      * Verify encoding is working as expected.
      *
-     * @covers Polyline::Encode
-     * @covers Polyline::Flatten
+     * @covers Polyline::encode
+     * @covers Polyline::flatten
      *
      * @return NULL
      */
@@ -74,7 +74,7 @@ class PrecisionTest extends PHPUnit_Framework_TestCase
     /**
      * Verify decoding is working as expected.
      *
-     * @covers Polyline::Decode
+     * @covers Polyline::decode
      *
      * @return NULL
      */

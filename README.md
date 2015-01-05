@@ -26,8 +26,7 @@ Old fashion way.
 
 ```
 $ git clone git://github.com/emcconville/google-map-polyline-encoding-tool.git
-$ make
-$ cp dist/Polyline.php /path/to/your/application/includes/Polyline.php
+$ cp src/Polyline.php /path/to/your/application/includes/Polyline.php
 ```
 
 ## Usage
@@ -44,7 +43,7 @@ $points = array(
         array(41.89084,-87.62386)
     );
 
-$encoded = Polyline::Encode($points);
+$encoded = Polyline::encode($points);
 //=> wxt~Fd`yuOCuErBC?vEoB@
 ```
 
@@ -56,14 +55,14 @@ $encoded = Polyline::Encode($points);
 // String to decode
 $encoded = "kiw~FpoavObBA?fAzEC";
 
-$points = Polyline::Decode($encoded);
+$points = Polyline::decode($encoded);
 //=> array(
 //     41.90374,-87.66729,41.90324,-87.66728,
 //     41.90324,-87.66764,41.90214,-87.66762
 //   );
 
 // Or list of tuples
-$points = Polyline::Pair($points);
+$points = Polyline::pair($points);
 //=> array(
 //     array(41.90374,-87.66729),
 //     array(41.90324,-87.66728),
@@ -94,8 +93,8 @@ class PolylineOSRM extends Polyline
 {
 	protected static $precision = 6;
 }
-$points = PolylineOSRM::Decode($line);
-$line = PolylineOSRM::Encode($points);
+$points = PolylineOSRM::decode($line);
+$line = PolylineOSRM::encode($points);
 ```
 
 **Caution**
@@ -105,22 +104,6 @@ $line = PolylineOSRM::Encode($points);
  - Third party libraries will not automatically know what level of precision was
    used during encoding.
 
-
-### Namespace
-
-By default, no namespace is defined. If a user wishes to have this library under
-a namespace, simply run the following.
-
-```
-$ make namespace
-```
-This will copy a namespace-enabled version to `dist/emcconville/Polyline.php`.
-Behavior & usage are preserved.
-
-```php
-use emcconville\Polyline as GooPly;
-$gooString = GooPly::decode($points);
-```
 
 ## Family
 

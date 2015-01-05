@@ -11,7 +11,7 @@ require 'examples/EncodedToSVG/EncodedToSVG.php';
 
 $encoded = $_GET['encoded'];
 
-$svg = EncodedToSVG::DecodeToSVG($encoded);
+$svg = EncodedToSVG::decodeToSVG($encoded);
 
 header('Content-Type: image/svg+xml');
 print $svg;

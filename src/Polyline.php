@@ -29,8 +29,6 @@
  * @link      https://github.com/emcconville/google-map-polyline-encoding-tool
  */
 
-//@NAMESPACE@ namespace emcconville {
-
 /**
  * Polyline encoding & decoding class
  *
@@ -162,5 +160,3 @@ class Polyline
         return $pairs;
     }
 }
-
-//@NAMESPACE@ }
