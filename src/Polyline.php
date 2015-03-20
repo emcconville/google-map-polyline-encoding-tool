@@ -147,6 +147,6 @@ class Polyline
      */
     final public static function pair( $list )
     {
-        return array_chunk($list, 2);
+        return is_array($list) ? array_chunk($list, 2) : array();
     }
 }
