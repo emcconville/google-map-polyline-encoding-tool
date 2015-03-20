@@ -147,16 +147,6 @@ class Polyline
      */
     final public static function pair( $list )
     {
-        $pairs = array();
-        if ( !is_array($list) ) {
-            return $pairs;
-        }
-        do {
-            $pairs[] = array(
-                    array_shift($list),
-                    array_shift($list)
-                );
-        } while ( !empty($list) );
-        return $pairs;
+        return array_chunk($list, 2);
     }
 }
