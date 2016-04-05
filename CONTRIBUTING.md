@@ -24,7 +24,7 @@ Run PHPCS's lint on affected files.
 
     $ vendor/bin/phpcs {examples,src,tests}
 
-
+_Happy Hacking!_
 
 
  [ref]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html

@@ -92,7 +92,7 @@ the `$precision` static property.
 ```php
 class PolylineOSRM extends Polyline
 {
-	protected static $precision = 6;
+    protected static $precision = 6;
 }
 $points = PolylineOSRM::decode($line);
 $line = PolylineOSRM::encode($points);
@@ -126,11 +126,6 @@ development.
 |Traits  |                                       |&#10004;              |                  |
 |Abstraction|                                    |&#10004;              |                  |
 
-|Hosted   |[google-map-polyline-encoding-tool][l1]|[polyline-encoder][l2]|[php_polyline][l3]|
-|:--------|:-------------------------------------:|:--------------------:|:----------------:|
-|Github   |&#10004;                               |&#10004;              |                  |
-|Bitbucket|                                       |&#10004;              |&#10004;          |
-
 
 [polylineRef]: http://code.google.com/apis/maps/documentation/javascript/reference.html#Polygon
 [algorithmRef]: http://code.google.com/apis/maps/documentation/utilities/polylinealgorithm.html
@@ -138,6 +133,6 @@ development.
 [dustyGroove]: http://emcconville.com/Polyline/dustygroove.png
 [osrmRef]: http://map.project-osrm.org/
 [l1]: https://github.com/emcconville/google-map-polyline-encoding-tool
-[l2]: https://bitbucket.org/emcconville/polyline-encoder
-[l3]: https://bitbucket.org/emcconville/php_polyline
+[l2]: https://github.com/emcconville/polyline-encoder
+[l3]: https://github.com/emcconville/php_polyline
 [composer]: https://github.com/composer/composer
