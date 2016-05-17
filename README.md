@@ -1,7 +1,7 @@
 # Google Maps Polyline Encoding Tool
 
 [![Build Status](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool.svg?branch=master)](https://travis-ci.org/emcconville/google-map-polyline-encoding-tool)
-[![Coverage Status](https://img.shields.io/coveralls/emcconville/google-map-polyline-encoding-tool.svg)](https://coveralls.io/r/emcconville/google-map-polyline-encoding-tool?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/emcconville/google-map-polyline-encoding-tool/badge.svg?branch=master)](https://coveralls.io/github/emcconville/google-map-polyline-encoding-tool?branch=master)
 [![Packagist Version](https://img.shields.io/packagist/v/emcconville/google-map-polyline-encoding-tool.svg)](https://packagist.org/packages/emcconville/google-map-polyline-encoding-tool)
 
 A simple PHP class for translating [polyline][polylineRef] into an 
