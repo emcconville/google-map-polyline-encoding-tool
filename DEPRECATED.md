@@ -2,7 +2,7 @@
 
 ## Singleton
 
-_Deprecated as of version 1.2.2. Removed in 2.0.0_
+_Deprecated as of version 1.2.2. Removed in 1.3.0_
 
 The Polyline object can be initialized as a single object, and be referenced
 throughout an application.
@@ -58,7 +58,7 @@ array(8) {
 
 ## Makefile
 
-_Removed with 2.0.0_
+_Removed with 1.3.0_
 
 Nobody uses `make` utility any more, and it did nothing useful but hold
 shortcuts. Moving project-specific commands to [CONTRIBUTING](CONTRIBUTING.md)
