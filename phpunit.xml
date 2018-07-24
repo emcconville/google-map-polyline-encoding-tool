@@ -16,9 +16,6 @@
     </exclude>
   </groups>
   <logging>
-    <!--
-    <log type="coverage-html" target="dist/coverage-report-html"/>
-    -->
-    <log type="coverage-clover" target="build/logs/clover.xml"/>
+    <log type="coverage-php" target="build/cov/coverage.cov"/>
   </logging>
 </phpunit>
