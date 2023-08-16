@@ -62,11 +62,16 @@ class Polyline
      *
      * @param array $points List of points to encode. Can be a list of tuples,
      *                      or a flat, one-dimensional array.
+     * @param bool $reverse Reverses the order of points before encoding.
      *
      * @return string encoded string
      */
-    final public static function encode( $points )
+    final public static function encode( $points, $reverse = false )
     {
+        if($reverse) {
+            $points = array_reverse($points);
+        }
+
         $points = self::flatten($points);
         $encodedString = '';
         $index = 0;

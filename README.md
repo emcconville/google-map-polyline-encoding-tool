@@ -82,6 +82,21 @@ use-cases / hacks.
  - [Well-Known Binary](examples/WellKnownBinary) converter.
  - Preview encoded strings with a [SVG transcoder](examples/EncodedToSVG).
 
+### Reverse Point Order
+There is no universal standard on the order of Latitude and Longitude. You can reverse the order of the points by 
+passing **true** as the second parameter.  
+```php
+$points = array(
+        array(-87.62386, 41.89084),
+        array(-87.62279, 41.89086),
+        array(-87.62277, 41.89028),
+        array(-87.62385, 41.89028),
+        array(-87.62386, 41.89084)
+    );
+
+$encoded = Polyline::encode($points, true);
+```
+
 ### Specify precision
 
 Precision defaults to 1e-5 (0.00001) which is expected by Google Map API. Other 
